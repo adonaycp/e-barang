@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Carbon\Carbon;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,13 +20,31 @@ Route::get('/', function () {
 
 Auth::routes();
 
-// Route::get('/register', function () {
+// Route::get('/', function () {
 //     return view('auth.register');
 // });
 
+// Route::get('auth.register', 'RegisterController');
+
+
+Route::resource('/profile', 'ProfileController');
+Route::put('/gantiPassword', 'ProfileController@gantiPassword')->name('gantiPassword');
+
 Route::resource('/suara', 'SuaraController');
 Route::resource('/category', 'CategoryController');
+
 Route::resource('/barang', 'BarangController');
+Route::resource('/ambil-barang', 'AmbilBarangController');
+
+// Route::post('getDataSelectCategory', ['as'=>'getDataSelectCategory','uses'=>'BarangController@getDataSelectCategory']);
+// Route::post('/profile', 'ProfileController@gantiPassword')->name('profile');
+// Route::get('/getDataCategory', [BarangController::class,'leftjoin'])->id('barang.leftjoin');
+
+
+// Route::get('/time', function(){
+//     $current = new Carbon();
+//     echo $current;
+// });
 
 Route::post('getDataSelectKelurahan', ['as'=>'getDataSelectKelurahan','uses'=>'SuaraController@getDataSelectKelurahan']);
 

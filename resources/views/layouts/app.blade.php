@@ -11,9 +11,9 @@
   <!-- Font Awesome -->
   <link rel="stylesheet" href="{{ asset('assets_backend/plugins/fontawesome-free/css/all.min.css') }}">
   <!--untuk datatable-->
-  <!-- <link rel="stylesheet" href="{{ asset('assets_backend/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}"> -->
-  <!-- <link rel="stylesheet" href="{{ asset('assets_backend/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}"> -->
-  <!-- <link rel="stylesheet" href="{{ asset('assets_backend/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}"> -->
+  <link rel="stylesheet" href="{{ asset('assets_backend/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets_backend/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets_backend/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Tempusdominus Bbootstrap 4 -->
@@ -52,12 +52,12 @@
     <ul class="navbar-nav ml-auto">
       <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
-          {{ Auth::user()->name }} &nbsp;&nbsp;<i class="fas fa-th-large"></i>
+           &nbsp;&nbsp;<i class="fas fa-th-large"></i>
         </a>
 
         <div class="dropdown-menu dropdown-menu-md dropdown-menu-right">
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-user-cog mr-2"></i> Setting
+          <a href="{{ url('/profile') }}" class="dropdown-item">
+            <i class="fas fa-user-cog mr-2"></i> Profile
           </a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item dropdown-footer" href="{{ route('logout') }}"
@@ -120,10 +120,24 @@
                 Barang
               </p>
             </a>
+            <!-- <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ url('/ambil-barang') }}" class="nav-link">
+                  <i class="fa fa-minus-square nav-icon" aria-hidden="true"></i>
+                  <p>Ambil Barang</p>
+                </a>
+              </li>
+            </ul> -->
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="{{ url('/ambil-barang') }}" class="nav-link {{(request()->segment(1) == 'ambil-barang') ? 'active' : ''}}">
+              <i class="fa fa-minus-square nav-icon" aria-hidden="true"></i>
+              <p>Ambil Barang</p>
+            </a>
           </li>
 
           <li class="nav-item has-treeview">
-            <a href="#" class="nav-link {{(request()->segment(1) == 'setting') ? 'active' : ''}}">
+            <a href="#" class="nav-link">
               <i class="nav-icon fas fa-cog"></i>
               <p>
                 Setting
@@ -138,7 +152,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./index2.html" class="nav-link">
+                <a href="{{ url('/profile') }}" class="nav-link {{(request()->segment(1) == 'profile') ? 'active' : ''}}">
                   <i class="fas fa-id-card nav-icon"></i>
                   <p>Profile</p>
                 </a>
@@ -164,15 +178,6 @@
     <div class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1 class="m-0 text-dark ">Dashboard</h1>
-          </div><!-- /.col -->
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Dashboard</li>
-            </ol>
-          </div><!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
     </div>
@@ -277,6 +282,21 @@
   $("select[name='kecamatan_id']").change(function(){
       var kecamatan_id = $(this).val();
       console.log(kecamatan_id);
+      var token = $("input[name='_token']").val();
+      $.ajax({
+          url: "<?php echo route('getDataSelectKelurahan') ?>",
+          method: 'POST',
+          data: {kecamatan_id:kecamatan_id, _token:token},
+          success: function(data) {
+              $("select[name='kelurahan_id'").html('');
+              $("select[name='kelurahan_id'").html(data.kode_kel);
+          }
+      });
+  });
+
+  $("select[name='id_category']").change(function(){
+      var id_category = $(this).val();
+      console.log(id_category);
       var token = $("input[name='_token']").val();
       $.ajax({
           url: "<?php echo route('getDataSelectKelurahan') ?>",

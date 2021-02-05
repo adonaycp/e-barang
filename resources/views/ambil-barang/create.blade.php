@@ -10,14 +10,14 @@
   <div class="container-fluid">
     <div class="row mb-2">
       <div class="col-sm-6">
-        <h1 class="m-0 text-dark ">Tambah Barang</h1>
+        <h1 class="m-0 text-dark ">Ambil Barang</h1>
       </div>
       <div class="col-sm-6">
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="{{ url('/home') }}">Home</a></li>
-            <li class="breadcrumb-item"><a href="{{ url('/barang') }}">Barang</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Tambah Barang</li>
+            <!-- <li class="breadcrumb-item"><a href="{{ url('/barang') }}">Barang</a></li> -->
+            <li class="breadcrumb-item active" aria-current="page">Ambil Barang</li>
           </ol>
         </nav>
       </div>
@@ -27,17 +27,22 @@
 
 <div class="card card-primary">
   <div class="card-header">
-    <h3 class="card-title">Input Data Barang</h3>
+    <h3 class="card-title">Input Data Ambil Barang</h3>
   </div>
   <!-- /.card-header -->
   <!-- form start -->
-  {!! Form::open(['url' => 'barang', 'method' => 'POST']) !!}
+  {!! Form::open(['url' => 'ambil-barang', 'method' => 'POST']) !!}
     {!! csrf_field() !!}
     <div class="card-body">
       <div class="form-group col-sm-6">
-        <label for="status">Nama Barang:</label><br/>
-        <input type="text" name="nama_brg" id="nama_barang" class="form-control" required>
-        
+        <label for="jenis">Nama Barang</label><br/> 
+        <select name="mama_brg" class="form-control">
+          <option value="">-Pilih-</option>
+          @foreach($barangs as $item)
+            <option value="{{$item->id}}">{{$item->nama_brg}}</option>
+          @endforeach
+        </select>
+
         <label for="jenis">Jenis</label><br/> 
         <select name="id_category" class="form-control">
           <option value="">-Pilih-</option>
@@ -45,7 +50,11 @@
             <option value="{{$item->id_category}}">{{$item->nama_category}}</option>
           @endforeach
         </select>
-        <div id="penghitungan">
+
+        <label for="status" class="sorting_asc" tabindex="0">Total Ambil:</label><br/>
+        <input type="text" name="item" id="item" class="form-control" value="" required>
+
+        <!-- <div id="penghitungan">
           <label for="status" class="sorting_asc" tabindex="0">Item:</label><br/>
           <input type="text" name="item" id="item" class="form-control" onkeyup="hitung()" value="" required>
 
@@ -54,14 +63,11 @@
           
           <label for="status">Harga Jumlah:</label><br/>
           <input type="text" name="hrg_jumlah" id="hrg_jumlah" class="form-control" value="" readonly="readonly">
-        </div>
+        </div> -->
 
         <div class="tanggal">
-          <label for="status">Tanggal Input:</label><br/>
-          <input type="text" name="tgl_input" id="tgl_input" class="date form-control" readonly="readonly" required>
-      
-          <label for="status">Tanggal Pembelian:</label><br/>
-          <input type="text" name="tgl_beli" id="tgl_beli" class="date form-control" required>
+          <label for="status">Tanggal Ambil:</label><br/>
+          <input type="text" name="tgl_ambil" id="tgl_ambil" class="date form-control" required>
           
           <script type="text/javascript">
             $('.date').datepicker({  
@@ -69,8 +75,19 @@
             }); 
           </script>
         </div>
-        <label for="status">Tahun:</label><br/>
-        <input type="text" name="tahun" id="tahun" class="form-control" required>
+        <label for="status" class="sorting_asc" tabindex="0">Nama Pengambil:</label><br/>
+        <input type="text" name="item" id="item" class="form-control" value="" required>
+
+        <label for="status">Bidang</label><br/>
+        <select name="bidang" class="form-control">
+          <option value="">-Pilih-</option>
+          <option value="1">Bidang 1</option>
+          <option value="2">Bidang 2</option>
+          <option value="3">Bidang 3</option>
+          <option value="4">Bidang 4</option>
+        </select>
+        <!-- {!! Form::select('size', array('1' => 'Bidang 1', '2' => 'Bidang 2', '3' => 'Bidang 3', '4' => 'Bidang 4')); !!} -->
+
       </div>
     </div>
 
@@ -78,7 +95,7 @@
       {{ Form::submit('Simpan Data', ['class' => 'btn btn-primary']) }}
     </div>
 
-    <script type="text/javascript">
+    <!-- <script type="text/javascript">
       function hitung()
       {
         var item = document.getElementById('item').value;
@@ -89,7 +106,7 @@
            document.getElementById('hrg_jumlah').value = hrg_jumlah;
         }
       }
-    </script>
+    </script> -->
   {!! Form::close() !!}
 </div>
 @endsection

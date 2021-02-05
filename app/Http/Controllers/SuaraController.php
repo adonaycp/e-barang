@@ -17,9 +17,9 @@ class SuaraController extends Controller
      */
     public function index()
     {
-        $suara = new Suara;
+        // $suara = new Suara;
 
-        $data = $suara->getViewDataSuara();
+        // $data = $suara->getViewDataSuara();
 
         return view('suara.index');
     }
@@ -31,9 +31,9 @@ class SuaraController extends Controller
      */
     public function create()
     {
-        $suara = new Suara;
+        // $suara = new Suara;
 
-        $kecamatans = $suara->getDataSelectKecamatan();
+        // $kecamatans = $suara->getDataSelectKecamatan();
 
         return view('suara.create', compact('kecamatans'));
     }
