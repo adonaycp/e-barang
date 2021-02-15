@@ -19,6 +19,7 @@ class AmbilBarang extends Model
     'nama_pengambil',
     'bidang',
     'operatorinput',
+    'id_ambilbarang'
   ];
   /**
     * untuk menampilkan nama kategori di tabel jenis barang
@@ -33,7 +34,7 @@ class AmbilBarang extends Model
     */
   public function namaBarang() 
   {
-    return $this->belongsTo('App\Barang', 'id');
+    return $this->belongsTo('App\Barang', 'id_barang');
   }
 
 

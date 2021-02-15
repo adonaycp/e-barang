@@ -8,11 +8,11 @@ use DB;
 class Barang extends Model
 {
   protected $table = 'barang';
-  protected $primaryKey = 'id';
+  protected $primaryKey = 'id_barang';
   public $timestamps = false;
 
   protected $fillable = [
-    'id',
+    'id_barang',
     'nama_brg',
     'item',
     'hrg_satuan',

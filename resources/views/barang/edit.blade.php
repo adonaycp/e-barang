@@ -17,7 +17,7 @@
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="{{ url('/home') }}">Home</a></li>
             <li class="breadcrumb-item"><a href="{{ url('/barang') }}">Barang</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Tambah Barang</li>
+            <li class="breadcrumb-item active" aria-current="page">Edit</li>
           </ol>
         </nav>
       </div>
@@ -27,42 +27,46 @@
 
 <div class="card card-primary">
   <div class="card-header">
-    <h3 class="card-title">Input Data Barang</h3>
+    <h3 class="card-title">Edit Data Barang</h3>
   </div>
   <!-- /.card-header -->
   <!-- form start -->
-  {!! Form::open(['url' => 'barang', 'method' => 'POST']) !!}
+  <form action="{{ route('barang.update', $barangs->id_barang)}}" method = POST>
     {!! csrf_field() !!}
+    @method('patch')
     <div class="card-body">
       <div class="form-group col-sm-6">
         <label for="status">Nama Barang:</label><br/>
-        <input type="text" name="nama_brg" id="nama_barang" class="form-control" required>
+        <input type="text" name="nama_brg" id="nama_brg" value="{{ $barangs->nama_brg }}" class="form-control" required>
         
         <label for="jenis">Jenis</label><br/> 
         <select name="id_category" class="form-control">
-          <option value="">-Pilih-</option>
           @foreach($categories as $item)
-            <option value="{{$item->id_category}}">{{$item->nama_category}}</option>
+            <option value="{{$item->id_category}}"
+            @if ($item->id_category === $barangs->id_category)
+                selected="selected"
+            @endif
+            >
+            {{$item->nama_category}}</option>
           @endforeach
         </select>
-        
         <div id="penghitungan">
           <label for="status" class="sorting_asc" tabindex="0">Item:</label><br/>
-          <input type="text" name="item" id="item" class="form-control" onkeyup="hitung()" value="" required>
+          <input type="text" name="item" id="item" value="{{ $barangs->item }}" class="form-control" onkeyup="hitung()" required>
 
           <label for="status">Harga Satuan:</label><br/>
-          <input type="text" name="hrg_satuan" id="hrg_satuan" class="form-control" onkeyup="hitung()" value="" required>
+          <input type="text" name="hrg_satuan" id="hrg_satuan" value="{{ $barangs->hrg_satuan }}" class="form-control" onkeyup="hitung()" required>
           
           <label for="status">Harga Jumlah:</label><br/>
-          <input type="text" name="hrg_jumlah" id="hrg_jumlah" class="form-control" value="" readonly="readonly">
+          <input type="text" name="hrg_jumlah" id="hrg_jumlah" class="form-control" value="{{ $barangs->hrg_jumlah }}" readonly="readonly">
         </div>
 
         <div class="tanggal">
           <label for="status">Tanggal Input:</label><br/>
-          <input type="text" name="tgl_input" id="tgl_input" class="date form-control"  required>
+          <input type="text" name="tgl_input" id="tgl_input" class="date form-control" value="{{ $barangs->tgl_input }}" readonly="readonly" required>
       
           <label for="status">Tanggal Pembelian:</label><br/>
-          <input type="text" name="tgl_beli" id="tgl_beli" class="date form-control" required>
+          <input type="text" name="tgl_pembelian" id="tgl_pembelian" class="date form-control" value="{{ $barangs->tgl_pembelian }}" required>
           
           <script type="text/javascript">
             $('.date').datepicker({  
@@ -71,7 +75,7 @@
           </script>
         </div>
         <label for="status">Tahun:</label><br/>
-        <input type="text" name="tahun" id="tahun" class="form-control" required>
+        <input type="text" name="tahun" id="tahun" class="form-control" value="{{ $barangs->tahun }}" required>
       </div>
     </div>
 

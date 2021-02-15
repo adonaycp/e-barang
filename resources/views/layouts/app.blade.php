@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="{{ asset('assets_backend/plugins/select2/css/select2.min.css') }}">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="{{ asset('assets_backend/plugins/fontawesome-free/css/all.min.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <!--untuk datatable-->
   <link rel="stylesheet" href="{{ asset('assets_backend/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
   <link rel="stylesheet" href="{{ asset('assets_backend/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
@@ -33,6 +34,13 @@
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
   <!-- buat tanggal-->
+  
+  <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.0/moment.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.39.0/js/tempusdominus-bootstrap-4.min.js" integrity="sha512-k6/Bkb8Fxf/c1Tkyl39yJwcOZ1P4cRrJu77p83zJjN2Z55prbFHxPs9vN7q3l3+tSMGPDdoH51AEU8Vgo1cgAA==" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.39.0/css/tempusdominus-bootstrap-4.min.css" integrity="sha512-3JRrEUwaCkFUBLK1N8HehwQgu8e23jTH4np5NHOmQOobuC4ROQxFwFgBLTnhcnQRMs84muMh0PnnwXlPq5MGjg==" crossorigin="anonymous" /> -->
+
+
 
 </head>
 
@@ -51,7 +59,7 @@
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
       <li class="nav-item dropdown">
-        <a class="nav-link" data-toggle="dropdown" href="#">
+        <a class="nav-link" data-toggle="dropdown" href="#">{{Auth::user()->name}}
            &nbsp;&nbsp;<i class="fas fa-th-large"></i>
         </a>
 
@@ -258,6 +266,8 @@
 <!-- page script -->
 
 <script src="{{ asset('assets_backend/plugins/bootstrap-switch/js/bootstrap-switch.min.js') }}"></script>
+
+
 <script>
   $(document).ready(function () {
     $('.select2').select2();
@@ -297,6 +307,21 @@
   $("select[name='id_category']").change(function(){
       var id_category = $(this).val();
       console.log(id_category);
+      var token = $("input[name='_token']").val();
+      $.ajax({
+          url: "<?php echo route('getDataSelectKelurahan') ?>",
+          method: 'POST',
+          data: {kecamatan_id:kecamatan_id, _token:token},
+          success: function(data) {
+              $("select[name='kelurahan_id'").html('');
+              $("select[name='kelurahan_id'").html(data.kode_kel);
+          }
+      });
+  });
+
+    $("select[name='kecamatan_id']").change(function(){
+      var kecamatan_id = $(this).val();
+      console.log(kecamatan_id);
       var token = $("input[name='_token']").val();
       $.ajax({
           url: "<?php echo route('getDataSelectKelurahan') ?>",

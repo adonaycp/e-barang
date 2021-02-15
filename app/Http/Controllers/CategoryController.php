@@ -89,9 +89,12 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id_category)
     {
-        //
+        $user = Auth::user();
+        $categories = DB::table('category')->where('id_category', $id_category)->first();
+
+        return view('category.edit', compact('categories'));
     }
 
     /**
@@ -101,9 +104,14 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id_category)
     {
-        //
+        $categories = DB::table('category')->where('id_category', $id_category)->update([
+            'nama_category' => $request->nama_category,
+            'status' => $request->status,
+        ]);
+        
+        return redirect('category')->with('success', 'Data Sudah Terupdate');
     }
 
     /**
@@ -112,8 +120,12 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id_category)
     {
-        //
+        $user = Auth::user();
+        $categories = DB::table('category')->where('id_category', $id_category)->delete();
+        return redirect('category')->with('success', 'Data Berhasil Dihapus');
+        
     }
+    
 }

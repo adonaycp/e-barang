@@ -30,11 +30,20 @@ Auth::routes();
 Route::resource('/profile', 'ProfileController');
 Route::put('/gantiPassword', 'ProfileController@gantiPassword')->name('gantiPassword');
 
-Route::resource('/suara', 'SuaraController');
+Route::get('/home', 'HomeController@index')->name('home');
+
 Route::resource('/category', 'CategoryController');
 
 Route::resource('/barang', 'BarangController');
+
 Route::resource('/ambil-barang', 'AmbilBarangController');
+
+Route::patch('/ambil-barang/{id_ambilbarang}', 'AmbilBarangController@update')->name('ambil-barang.update');
+
+// Route::delete('/ambil-barang/{id_ambilbarang}', 'AmbilBarangController@destroy')->name('ambil-barang.destroy');
+// Route::get('/ambil-barang/edit/{id_ambilbarang}', 'AmbilBarangController@edit')->name('home');
+
+
 
 // Route::post('getDataSelectCategory', ['as'=>'getDataSelectCategory','uses'=>'BarangController@getDataSelectCategory']);
 // Route::post('/profile', 'ProfileController@gantiPassword')->name('profile');
@@ -46,6 +55,6 @@ Route::resource('/ambil-barang', 'AmbilBarangController');
 //     echo $current;
 // });
 
-Route::post('getDataSelectKelurahan', ['as'=>'getDataSelectKelurahan','uses'=>'SuaraController@getDataSelectKelurahan']);
+Route::resource('/suara', 'SuaraController');
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::post('getDataSelectKelurahan', ['as'=>'getDataSelectKelurahan','uses'=>'SuaraController@getDataSelectKelurahan']);
