@@ -11,14 +11,14 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0 text-dark ">Ambil Barang</h1>
+                <h1 class="m-0 text-dark ">Data Saldo Awal</h1>
             </div>
             <div class="col-sm-6">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ url('/home') }}">Home</a></li>
-                        <li class="breadcrumb-item"><a href="{{ url('/ambil-barang') }}">Data Ambil Barang</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Edit</li>
+                        <li class="breadcrumb-item"><a href="{{ url('/saldo-awal') }}">Data Saldo Awal</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Edit Data Saldo Awal</li>
                     </ol>
                 </nav>
             </div>
@@ -29,11 +29,11 @@
 
 <div class="card card-primary">
     <div class="card-header">
-        <h3 class="card-title">Edit Data Ambil Barang</h3>
+        <h3 class="card-title">Edit Data Saldo Awal</h3>
     </div>
   <!-- /.card-header -->
   <!-- form start -->
-    <form action="{{ route('ambil-barang.update', $ambilbarang->id_ambilbarang)}}" method = POST>
+    <form action="{{ route('saldo-awal.update', $saldoawal->id_saldoawal)}}" method = POST>
         {!! csrf_field() !!}
         @method('patch')
         <div class="card-body">
@@ -43,7 +43,7 @@
                     <select name="id_barang" class="form-control">
                         @foreach($barangs as $item)
                         <option value="{{ $item->id_barang }}"
-                            @if ($item->id_barang === $ambilbarang->id_barang)
+                            @if ($item->id_barang === $saldoawal->id_barang)
                             selected="selected"
                             @endif
                         >
@@ -55,7 +55,7 @@
                     <select name="id_category" class="form-control">
                         @foreach($categories as $item)
                         <option value="{{ $item->id_category }}"
-                        @if ($item->id_category === $ambilbarang->id_category)
+                        @if ($item->id_category === $saldoawal->id_category)
                             selected="selected"
                         @endif
                         >
@@ -64,10 +64,10 @@
                     </select>
 
                 <label for="status" class="sorting_asc" tabindex="0">Total Ambil:</label><br/>
-                <input type="number" name="total_ambil" id="total_ambil" class="form-control" value="{{ $ambilbarang->total_ambil }}" required>
+                <input type="number" name="total_ambil" id="total_ambil" class="form-control" value="{{ $saldoawal->total_ambil }}" required>
 
                     <label for="status">Tanggal Ambil:</label><br/>
-                    <input date-format="yyyy-mm-dd" name="tgl_ambil" id="tgl_ambil" class="form-control" value="{{ $ambilbarang->tgl_ambil }}">
+                    <input date-format="yyyy-mm-dd" name="tgl_ambil" id="tgl_ambil" class="form-control" value="{{ $saldoawal->tgl_ambil }}">
                     <script type="text/javascript">
                         $('#tgl_ambil').datepicker({  
                             weekStart: 1,
@@ -78,17 +78,9 @@
                         }); 
                     </script>
 
-                <label>Nama Pengambil:</label><br/>
-                <input type="text" name="nama_pengambil" value="{{ $ambilbarang->nama_pengambil }}" class="form-control">
+                <label for="status">Tahun:</label><br/>
+                <input type="number" name="tahun" id="tahun" class="form-control" value="{{ $saldoawal->tahun }}">
 
-                <label for="status">Bidang</label><br/>
-                <select name="bidang" class="form-control">
-                    <option value="{{ $ambilbarang->bidang }}">{{ $ambilbarang->bidang }}</option>
-                    <option value="1">Bidang 1</option>
-                    <option value="2">Bidang 2</option>
-                    <option value="3">Bidang 3</option>
-                    <option value="4">Bidang 4</option>
-                </select>
             </div>
         </div>
 
@@ -96,18 +88,6 @@
         {{ Form::submit('Simpan Data', ['class' => 'btn btn-primary']) }}
         </div>
 
-        <script type="text/javascript">
-            function hitung()
-            {
-                var item = document.getElementById('item').value;
-                var hrg_satuan = document.getElementById('hrg_satuan').value;
-
-                var  hrg_jumlah= (parseInt(item)) * (parseInt(hrg_satuan));
-                if (!isNaN(hrg_jumlah)) {
-                document.getElementById('hrg_jumlah').value = hrg_jumlah;
-                }
-            }
-        </script>
     {!! Form::close() !!}
 </div>
 @endsection

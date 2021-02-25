@@ -10,14 +10,14 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 class="m-0 text-dark ">Input Data Ambil Barang</h1>
+                <h1 class="m-0 text-dark ">Input Data Beli Barang</h1>
             </div>
             <div class="col-sm-6">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ url('/home') }}">Home</a></li>
-                        <li class="breadcrumb-item"><a href="{{ url('/ambil-barang') }}">Data Ambil Barang</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Input Data Ambil Barang</li>
+                        <li class="breadcrumb-item"><a href="{{ url('/beli-barang') }}">Data Beli Barang</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Input Data Beli Barang</li>
                     </ol>
                 </nav>
             </div>
@@ -27,11 +27,11 @@
 
 <div class="card card-primary">
     <div class="card-header">
-        <h3 class="card-title">Input Data Ambil Barang</h3>
+        <h3 class="card-title">Input Data Beli Barang</h3>
     </div>
-  <!-- /.card-header -->
-  <!-- form start -->
-    {!! Form::open(['url' => 'ambil-barang', 'method' => 'POST']) !!}
+    <!-- /.card-header -->
+    <!-- form start -->
+    {!! Form::open(['url' => 'beli-barang', 'method' => 'POST']) !!}
         {!! csrf_field() !!}
         <div class="card-body">
             <div class="form-group col-sm-6">
@@ -51,42 +51,53 @@
                     @endforeach
                 </select>
 
-                <label for="status" class="sorting_asc" tabindex="0">Total Ambil:</label><br/>
-                <input type="number" name="total_ambil" id="total_ambil" class="form-control" value="" required>
+                <div id="penghitungan">
+                    <label for="status" class="sorting_asc" tabindex="0">Item:</label><br/>
+                    <input type="number" name="item" id="item" class="form-control" onkeyup="hitung()" min="0" required>
 
-                <div class="tanggal">
-                    <label for="status">Tanggal Ambil:</label><br/>
-                    <input date-format="yyyy-mm-dd" name="tgl_ambil" id="tgl_ambil" class="form-control" required>
+                    <label for="status">Harga Satuan:</label><br/>
+                    <input type="number" name="hrg_satuan" id="hrg_satuan" class="form-control" onkeyup="hitung()" min="0" required>
                     
-                    <script type="text/javascript">
-                        $('#tgl_ambil').datepicker({  
-                            weekStart: 1,
-                            autoclose:true,
-                            todayHighlight:true,
-                            format:'yyyy-mm-dd',
-                            language: 'id'
-                        }); 
-                    </script>
-
+                    <label for="status">Harga Jumlah:</label><br/>
+                    <input type="number" name="hrg_jumlah" id="hrg_jumlah" class="form-control" min="0" readonly="readonly">
                 </div>
 
-                <label for="status" class="sorting_asc" tabindex="0">Nama Pengambil:</label><br/>
-                <input type="text" name="nama_pengambil" id="nama_pengambil" class="form-control" value="" required>
+                <div class="tanggal">
+                    <label for="status">Tanggal Beli:</label><br/>
+                    <input date-format="yyyy-mm-dd" name="tgl_beli" id="tgl_beli" class="form-control" required>
+                </div>
 
-                <label for="status">Bidang</label><br/>
-                <select name="bidang" class="form-control">
-                    <option value="">-Pilih-</option>
-                    <option value="1">Bidang 1</option>
-                    <option value="2">Bidang 2</option>
-                    <option value="3">Bidang 3</option>
-                    <option value="4">Bidang 4</option>
-                </select>
             </div>
         </div>
 
         <div class="card-footer">
         {{ Form::submit('Simpan Data', ['class' => 'btn btn-primary']) }}
         </div>
+
+        <script type="text/javascript">
+            (function(){
+                $('#tgl_beli').datepicker({  
+                    weekStart: 1,
+                    autoclose:true,
+                    todayHighlight:true,
+                    format:'yyyy-mm-dd',
+                    language: 'id'
+                }); 
+
+                hitung();
+            }());
+
+            function hitung()
+            {
+                var item = document.getElementById('item').value;
+                var hrg_satuan = document.getElementById('hrg_satuan').value;
+
+                var  hrg_jumlah= (parseInt(item)) * (parseInt(hrg_satuan));
+                if (!isNaN(hrg_jumlah)) {
+                document.getElementById('hrg_jumlah').value = hrg_jumlah;
+                }
+            }
+        </script>
     {!! Form::close() !!}
 </div>
 @endsection

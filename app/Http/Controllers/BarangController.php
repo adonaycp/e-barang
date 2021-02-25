@@ -54,9 +54,9 @@ class BarangController extends Controller
         $item = $request->input('item');
         $hrg_satuan = $request->input('hrg_satuan');
         $hrg_jumlah = $request->input('hrg_jumlah');
-        $tgl_input = date("Y-m-d");
-        $tgl_update = date("Y-m-d");
-        $tgl_pembelian = date("Y-m-d");
+        $tgl_input = date("Y-m-d", strtotime($request->tgl_input));
+        $tgl_update = date("Y-m-d", strtotime($request->tgl_update));
+        $tgl_pembelian = date("Y-m-d", strtotime($request->tgl_pembelian));
         $operatorinput = $user->id;
         $tahun = $request->input('tahun');
         $id_category = $request->input('id_category');
@@ -94,38 +94,38 @@ class BarangController extends Controller
         }
     }
 
-  /**
-    * Display the specified resource.
-    *
-    * @param  int  $id
-    * @return \Illuminate\Http\Response
-    */
-  public function show($id)
-  {
-    //
-  }
+    /**
+        * Display the specified resource.
+        *
+        * @param  int  $id
+        * @return \Illuminate\Http\Response
+        */
+    public function show($id)
+    {
+        //
+    }
 
-  /**
-    * Show the form for editing the specified resource.
-    *
-    * @param  int  $id
-    * @return \Illuminate\Http\Response
-    */
-  public function edit($id_barang)
-  {
-    $categories = Category::all();
-    $barangs = DB::table('barang')->where('id_barang', $id_barang)->first();
+    /**
+        * Show the form for editing the specified resource.
+        *
+        * @param  int  $id
+        * @return \Illuminate\Http\Response
+        */
+    public function edit($id_barang)
+    {
+        $categories = Category::all();
+        $barangs = DB::table('barang')->where('id_barang', $id_barang)->first();
 
-    return view('barang.edit', compact('barangs', 'categories'));
-  }
+        return view('barang.edit', compact('barangs', 'categories'));
+    }
 
-  /**
-    * Update the specified resource in storage.
-    *
-    * @param  \Illuminate\Http\Request  $request
-    * @param  int  $id
-    * @return \Illuminate\Http\Response
-    */
+    /**
+        * Update the specified resource in storage.
+        *
+        * @param  \Illuminate\Http\Request  $request
+        * @param  int  $id
+        * @return \Illuminate\Http\Response
+        */
     public function update(Request $request, $id_barang)
     {
         // $barangs = Barang::all();
@@ -161,4 +161,5 @@ class BarangController extends Controller
         $barangs = DB::table('barang')->where('id_barang', $id_barang)->delete();
         return redirect('barang')->with('success', 'Data Berhasil Dihapus');
     }
+    
 }

@@ -12,80 +12,80 @@ use Auth;
 
 class AmbilBarangController extends Controller
 {
-  /**
+    /**
     * Display a listing of the resource.
     *
     * @return \Illuminate\Http\Response
     */
-  public function index()
-  {
-  /**
-    * untuk menampilkan nama kategori dan barang di tabel ambilbarang
-    */
-    $ambilbarang = AmbilBarang::with(['namaBarang'], ['namaKategori'])->get();
-    return view('ambil-barang.index', compact('ambilbarang'));
-  }
+    public function index()
+    {
+        /**
+        * untuk menampilkan nama kategori dan barang di tabel ambilbarang
+        */
+        $ambilbarang = AmbilBarang::with(['namaBarang'], ['namaKategori'])->get();
+        return view('ambil-barang.index', compact('ambilbarang'));
+    }
 
-  /**
+    /**
      * Show the form for creating a new resource.
     *
     * @return \Illuminate\Http\Response
     */
-  public function create()
-  {
+    public function create()
+    {
 
-    $barangs = Barang::all();
-    $categories = Category::all();
-    return view('ambil-barang.create', compact('barangs'), compact('categories'));
-  }
+        $barangs = Barang::all();
+        $categories = Category::all();
+        return view('ambil-barang.create', compact('barangs'), compact('categories'));
+    }
 
-  /**
+    /**
     * Store a newly created resource in storage.
     *
     * @param  \Illuminate\Http\Request  $request
     * @return \Illuminate\Http\Response
     */
-  public function store(Request $request)
-  {
-    $user = Auth::user();
-    $id_category = $request->input('id_category'); //ambil dari tabel category
-    $id_barang = $request->input('id_barang'); //ambil dari tabel barang
-    $total_ambil = $request->input('total_ambil');
-    $tgl_ambil = date("Y-m-d");
-    $nama_pengambil = $request->input('nama_pengambil');
-    $bidang = $request->input('bidang');
-    $operatorinput = $user->id;
-
-    DB::beginTransaction();
-
-    try
+    public function store(Request $request)
     {
-      $ambilbarang = AmbilBarang::create([
-      
-      'id_category' => $id_category,
-      'id_barang' => $id_barang,
-      'total_ambil' => $total_ambil,
-      'tgl_ambil' => $tgl_ambil,
-      'nama_pengambil' => $nama_pengambil,
-      'bidang' => $bidang,
-      'operatorinput' => $operatorinput
-      ]);
+        $user = Auth::user();
+        $id_category = $request->input('id_category'); //ambil dari tabel category
+        $id_barang = $request->input('id_barang'); //ambil dari tabel barang
+        $total_ambil = $request->input('total_ambil');
+        $tgl_ambil = date("Y-m-d", strtotime($request->tgl_ambil));
+        $nama_pengambil = $request->input('nama_pengambil');
+        $bidang = $request->input('bidang');
+        $operatorinput = $user->id;
 
-      $ambilbarang->save();
+        DB::beginTransaction();
 
-      DB::commit();
-        return redirect::to('ambil-barang')
-          ->with('success','Data berhasil disimpan.');
+        try
+        {
+            $ambilbarang = AmbilBarang::create([
+            
+            'id_category' => $id_category,
+            'id_barang' => $id_barang,
+            'total_ambil' => $total_ambil,
+            'tgl_ambil' => $tgl_ambil,
+            'nama_pengambil' => $nama_pengambil,
+            'bidang' => $bidang,
+            'operatorinput' => $operatorinput
+            ]);
+
+            $ambilbarang->save();
+
+            DB::commit();
+            return redirect::to('ambil-barang')
+                ->with('success','Data berhasil disimpan.');
+        }
+        catch (\Throwable $t) 
+        {
+            // dd($user->id);
+            // dd($t);
+            DB::rollback();
+            return redirect::to('ambil-barang')
+                ->with('warning','Data gagal disimpan. Input data kembali.');
+        }
     }
-    catch (\Throwable $t) 
-    {
-      // dd($user->id);
-      dd($t);
-      DB::rollback();
-        return redirect::to('ambil-barang')
-          ->with('warning','Data gagal disimpan. Input data kembali.');
-    }
-  }
 
     /**
      * Display the specified resource.

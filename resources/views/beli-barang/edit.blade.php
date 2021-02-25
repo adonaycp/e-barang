@@ -10,15 +10,15 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0 text-dark ">Tambah Barang</h1>
+                <h1 class="m-0 text-dark ">Edit Data Beli Barang</h1>
             </div>
             <div class="col-sm-6">
                 <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{ url('/home') }}">Home</a></li>
-                        <li class="breadcrumb-item"><a href="{{ url('/barang') }}">Barang</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Edit</li>
-                    </ol>
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="{{ url('/home') }}">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{{ url('/beli-barang') }}">Data Beli Barang</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Edit Data Beli Barang</li>
+                </ol>
                 </nav>
             </div>
         </div>
@@ -27,72 +27,74 @@
 
 <div class="card card-primary">
     <div class="card-header">
-        <h3 class="card-title">Edit Data Barang</h3>
+        <h3 class="card-title">Edit Data Beli Barang</h3>
     </div>
     <!-- /.card-header -->
     <!-- form start -->
-    <form action="{{ route('barang.update', $barangs->id_barang)}}" method = POST>
+    <form action="{{ route('beli-barang.update', $belibarang->id_belibarang)}}" method = POST>
         {!! csrf_field() !!}
         @method('patch')
         <div class="card-body">
             <div class="form-group col-sm-6">
-                <label for="status">Nama Barang:</label><br/>
-                <input type="text" name="nama_brg" id="nama_brg" value="{{ $barangs->nama_brg }}" class="form-control" required>
-                
+                <label for="nama_brg">Nama Barang</label><br/> 
+                <select name="id_barang" class="form-control">
+                    @foreach($barangs as $item)
+                    <option value="{{ $item->id_barang }}"
+                        @if ($item->id_barang === $belibarang->id_barang)
+                        selected="selected"
+                        @endif
+                    >
+                    {{$item->nama_brg}}</option>
+                    @endforeach
+                </select>
+
                 <label for="jenis">Jenis</label><br/> 
                 <select name="id_category" class="form-control">
                     @foreach($categories as $item)
-                        <option value="{{$item->id_category}}"
-                        @if ($item->id_category === $barangs->id_category)
-                            selected="selected"
-                        @endif
-                        >
-                        {{$item->nama_category}}</option>
+                    <option value="{{ $item->id_category }}"
+                    @if ($item->id_category === $belibarang->id_category)
+                        selected="selected"
+                    @endif
+                    >
+                    {{$item->nama_category}}</option>
                     @endforeach
                 </select>
 
                 <div id="penghitungan">
                     <label for="status" class="sorting_asc" tabindex="0">Item:</label><br/>
-                    <input type="number" name="item" id="item" value="{{ $barangs->item }}" class="form-control" onkeyup="hitung()" min="0" required>
+                    <input type="number" min="0" name="item" id="item" class="form-control" onkeyup="hitung()" value="{{ $belibarang->item }}">
 
                     <label for="status">Harga Satuan:</label><br/>
-                    <input type="number" name="hrg_satuan" id="hrg_satuan" value="{{ $barangs->hrg_satuan }}" class="form-control" onkeyup="hitung()" min="0" required>
+                    <input type="number" min="0" name="hrg_satuan" id="hrg_satuan" class="form-control" onkeyup="hitung()" value="{{ $belibarang->hrg_satuan }}">
                     
                     <label for="status">Harga Jumlah:</label><br/>
-                    <input type="number" name="hrg_jumlah" id="hrg_jumlah" class="form-control" value="{{ $barangs->hrg_jumlah }}" min="0" readonly="readonly">
+                    <input type="number" min="0" name="hrg_jumlah" id="hrg_jumlah" class="form-control" value="@currency($belibarang->hrg_jumlah)" readonly="readonly">
                 </div>
 
                 <div class="tanggal">
-                    <label for="status">Tanggal Input:</label><br/>
-                    <input date-format="yyyy-mm-dd" name="tgl_input" id="tgl_input" class="date form-control" value="{{ $barangs->tgl_input }}" readonly="readonly" required>
-                
-                    <label for="status">Tanggal Pembelian:</label><br/>
-                    <input date-format="yyyy-mm-dd" name="tgl_pembelian" id="tgl_pembelian" class="date form-control" value="{{ $barangs->tgl_pembelian }}" required>
+                    <label for="status">Tanggal Beli:</label><br/>
+                    <input date-format="yyyy-mm-dd" name="tgl_beli" id="tgl_beli" class="form-control" value="{{ $belibarang->tgl_beli }}">
                 </div>
-
-                <label for="status">Tahun:</label><br/>
-                <input type="number" name="tahun" id="tahun" class="form-control" value="{{ $barangs->tahun }}" required>
             </div>
         </div>
 
         <div class="card-footer">
-        {{ Form::submit('Simpan Data', ['class' => 'btn btn-primary']) }}
+            {{ Form::submit('Simpan Data', ['class' => 'btn btn-primary']) }}
         </div>
 
         <script type="text/javascript">
             (function(){
-                $('.date').datepicker({  
+                $('#tgl_beli').datepicker({  
                     weekStart: 1,
                     autoclose:true,
                     todayHighlight:true,
                     format:'yyyy-mm-dd',
                     language: 'id'
-                });
+                }); 
 
                 hitung();
             }());
 
-            
             function hitung()
             {
                 var item = document.getElementById('item').value;
@@ -102,8 +104,8 @@
                 if (!isNaN(hrg_jumlah)) {
                 document.getElementById('hrg_jumlah').value = hrg_jumlah;
                 }
-            };
- 
+            }
+
         </script>
     {!! Form::close() !!}
 </div>

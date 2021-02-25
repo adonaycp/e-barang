@@ -18,16 +18,14 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
+Route::get('/auth/register', function () {
+    return view('auth.register');
+});
+
 Auth::routes();
 
-// Route::get('/', function () {
-//     return view('auth.register');
-// });
-
-// Route::get('auth.register', 'RegisterController');
-
-
 Route::resource('/profile', 'ProfileController');
+
 Route::put('/gantiPassword', 'ProfileController@gantiPassword')->name('gantiPassword');
 
 Route::get('/home', 'HomeController@index')->name('home');
@@ -36,25 +34,21 @@ Route::resource('/category', 'CategoryController');
 
 Route::resource('/barang', 'BarangController');
 
+Route::resource('/beli-barang', 'BeliBarangController');
+
 Route::resource('/ambil-barang', 'AmbilBarangController');
 
-Route::patch('/ambil-barang/{id_ambilbarang}', 'AmbilBarangController@update')->name('ambil-barang.update');
+Route::resource('/user-list', 'UserListController');
 
-// Route::delete('/ambil-barang/{id_ambilbarang}', 'AmbilBarangController@destroy')->name('ambil-barang.destroy');
-// Route::get('/ambil-barang/edit/{id_ambilbarang}', 'AmbilBarangController@edit')->name('home');
+Route::resource('/saldo-awal', 'SaldoAwalController');
 
+Route::get('/saldo-awal/cetak', 'SaldoAwalController@cetak')->name('saldo-awal.cetak');
 
 
 // Route::post('getDataSelectCategory', ['as'=>'getDataSelectCategory','uses'=>'BarangController@getDataSelectCategory']);
 // Route::post('/profile', 'ProfileController@gantiPassword')->name('profile');
-// Route::get('/getDataCategory', [BarangController::class,'leftjoin'])->id('barang.leftjoin');
+// Route::get('/getDataCategory', [BarangController::class,'leftjoin'])->id('barang.leftjoin'); 
 
+// Route::resource('/suara', 'SuaraController');
 
-// Route::get('/time', function(){
-//     $current = new Carbon();
-//     echo $current;
-// });
-
-Route::resource('/suara', 'SuaraController');
-
-Route::post('getDataSelectKelurahan', ['as'=>'getDataSelectKelurahan','uses'=>'SuaraController@getDataSelectKelurahan']);
+// Route::post('getDataSelectKelurahan', ['as'=>'getDataSelectKelurahan','uses'=>'SuaraController@getDataSelectKelurahan']);

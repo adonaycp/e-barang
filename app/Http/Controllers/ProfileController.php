@@ -34,6 +34,7 @@ class ProfileController extends Controller
     // dd($request);
     $user = Auth::user();
     $user->name = $request->name;
+    $user->username = $request->username;
     $user->password = Hash::make($request->password);
     $user->save();
     return view('profile.index');

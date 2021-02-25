@@ -34,13 +34,6 @@
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
   <!-- buat tanggal-->
-  
-  <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.0/moment.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.39.0/js/tempusdominus-bootstrap-4.min.js" integrity="sha512-k6/Bkb8Fxf/c1Tkyl39yJwcOZ1P4cRrJu77p83zJjN2Z55prbFHxPs9vN7q3l3+tSMGPDdoH51AEU8Vgo1cgAA==" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.39.0/css/tempusdominus-bootstrap-4.min.css" integrity="sha512-3JRrEUwaCkFUBLK1N8HehwQgu8e23jTH4np5NHOmQOobuC4ROQxFwFgBLTnhcnQRMs84muMh0PnnwXlPq5MGjg==" crossorigin="anonymous" /> -->
-
-
 
 </head>
 
@@ -128,19 +121,26 @@
                 Barang
               </p>
             </a>
-            <!-- <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{ url('/ambil-barang') }}" class="nav-link">
-                  <i class="fa fa-minus-square nav-icon" aria-hidden="true"></i>
-                  <p>Ambil Barang</p>
-                </a>
-              </li>
-            </ul> -->
           </li>
+
           <li class="nav-item has-treeview">
             <a href="{{ url('/ambil-barang') }}" class="nav-link {{(request()->segment(1) == 'ambil-barang') ? 'active' : ''}}">
               <i class="fa fa-minus-square nav-icon" aria-hidden="true"></i>
               <p>Ambil Barang</p>
+            </a>
+          </li>
+
+          <li class="nav-item has-treeview">
+            <a href="{{ url('/beli-barang') }}" class="nav-link {{(request()->segment(1) == 'beli-barang') ? 'active' : ''}}">
+              <i class="fa fa-shopping-cart nav-icon" aria-hidden="true"></i>
+              <p>Beli Barang</p>
+            </a>
+          </li>
+
+          <li class="nav-item has-treeview">
+            <a href="{{ url('/saldo-awal') }}" class="nav-link {{(request()->segment(1) == 'saldo-awal') ? 'active' : ''}}">
+              <i class="fa fa-money nav-icon" aria-hidden="true"></i>
+              <p>Saldo Awal</p>
             </a>
           </li>
 
@@ -166,9 +166,15 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./index3.html" class="nav-link">
+                <a href="{{ url('/user-list') }}" class="nav-link {{(request()->segment(1) == 'user-list') ? 'active' : ''}} ">
                   <i class="fas fa-users nav-icon"></i>
                   <p>Users</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ url('/auth/register') }}" class="nav-link {{(request()->segment(1) == 'register') ? 'active' : ''}} ">
+                  <i class="fas fa-users nav-icon"></i>
+                  <p>Register</p>
                 </a>
               </li>
             </ul>
@@ -266,6 +272,20 @@
 <!-- page script -->
 
 <script src="{{ asset('assets_backend/plugins/bootstrap-switch/js/bootstrap-switch.min.js') }}"></script>
+<!-- buat tanggal-->
+
+<!-- buat tanggal-->
+<script src="{{ asset('assets_backend/plugins/pdfmake/pdfmake.min.js') }}"></script>
+<script src="{{ asset('assets_backend/plugins/pdfmake/vfs_fonts.js') }}"></script>
+
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script> -->
+<!-- <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script> -->
+<script src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.flash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+
+<script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.print.min.js"></script>
 
 
 <script>
@@ -286,53 +306,33 @@
       "responsive": true,
       "autoWidth": false,
     });
+
+    $("#ambil-barang").DataTable({
+      "responsive": true,
+      "autoWidth": false,
+    });
+
+    $("#beli-barang").DataTable({
+      "responsive": true,
+      "autoWidth": false,
+    });
+
+    $("#user-list").DataTable({
+      "responsive": true,
+      "autoWidth": false,
+    });
+
+    $("#saldo").DataTable({
+      "responsive": true,
+      "autoWidth": false,
+      dom: '<"pull-left"B><"pull-left col-sm-8"l><"pull-right"f>tip',
+      buttons: [
+        {extend: "pdf", className: "btn-light", title: 'BAPENDA KOTA SEMARANG', messageTop: 'Saldo Awal Tahun 2021'},
+        {extend: "excel", className: "btn-light", title: 'BAPENDA KOTA SEMARANG', messageTop: 'Saldo Awal Tahun 2021'},
+        {extend: "print", className: "btn-light", title: 'BAPENDA KOTA SEMARANG', messageTop: 'Saldo Awal Tahun 2021'}
+    ]});
     
   })
-
-  $("select[name='kecamatan_id']").change(function(){
-      var kecamatan_id = $(this).val();
-      console.log(kecamatan_id);
-      var token = $("input[name='_token']").val();
-      $.ajax({
-          url: "<?php echo route('getDataSelectKelurahan') ?>",
-          method: 'POST',
-          data: {kecamatan_id:kecamatan_id, _token:token},
-          success: function(data) {
-              $("select[name='kelurahan_id'").html('');
-              $("select[name='kelurahan_id'").html(data.kode_kel);
-          }
-      });
-  });
-
-  $("select[name='id_category']").change(function(){
-      var id_category = $(this).val();
-      console.log(id_category);
-      var token = $("input[name='_token']").val();
-      $.ajax({
-          url: "<?php echo route('getDataSelectKelurahan') ?>",
-          method: 'POST',
-          data: {kecamatan_id:kecamatan_id, _token:token},
-          success: function(data) {
-              $("select[name='kelurahan_id'").html('');
-              $("select[name='kelurahan_id'").html(data.kode_kel);
-          }
-      });
-  });
-
-    $("select[name='kecamatan_id']").change(function(){
-      var kecamatan_id = $(this).val();
-      console.log(kecamatan_id);
-      var token = $("input[name='_token']").val();
-      $.ajax({
-          url: "<?php echo route('getDataSelectKelurahan') ?>",
-          method: 'POST',
-          data: {kecamatan_id:kecamatan_id, _token:token},
-          success: function(data) {
-              $("select[name='kelurahan_id'").html('');
-              $("select[name='kelurahan_id'").html(data.kode_kel);
-          }
-      });
-  });
 </script>
 </body>
 </html>

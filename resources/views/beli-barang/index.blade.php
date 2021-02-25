@@ -5,13 +5,13 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0 text-dark ">Daftar Pengguna</h1>
+                <h1 class="m-0 text-dark ">Data Beli Barang</h1>
             </div>
             <div class="col-sm-6">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ url('/home') }}">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Daftar Pengguna</li>
+                        <li class="breadcrumb-item active" aria-current="page">Data Beli Barang</li>
                     </ol>
                 </nav>
             </div>
@@ -34,33 +34,43 @@
     <div class="card">
         <div class="card-header">
             <div class="row">
-                <a href="{{ url('/auth/register') }}" class="btn bg-gradient-primary btn-md" role="button"><i class="fa fa-plus" aria-hidden="true"></i> Tambah Pengguna</a>&nbsp;&nbsp;
+                <a href="{{ url('/beli-barang/create') }}" class="btn bg-gradient-primary btn-md" role="button">
+                <i class="fa fa-plus" aria-hidden="true"></i> Tambah Data</a>&nbsp;&nbsp;
+                
+                <a href="" class="btn bg-gradient-secondary btn-md" role="button">
+                <i class="fa fa-plus" aria-hidden="true"></i> Cetak</a>&nbsp;&nbsp;
             </div>
         </div>
         <!-- /.card-header -->
         <div class="card-body">
-            <table id="user-list" class="table table-bordered table-striped">
+            <table id="barang" class="table table-bordered table-striped">
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>Nama</th>
-                        <th>Username</th>
-                        <th>Email</th>
+                        <th>Nama Barang</th>
+                        <th>Jenis</th>
+                        <th>Item</th>
+                        <th>Harga Satuan</th>
+                        <th>Harga Jumlah</th>
+                        <th>Tanggal Beli</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($users as $row)
+                    @foreach($belibarang as $i) 
                     <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{$row['name']}}</td>
-                        <td>{{$row['username']}}</td>
-                        <td>{{$row['email']}}</td>
+                        <td>{{$loop->iteration }}</td>
+                        <td>{{$i->namaBarang['nama_brg'] }}</td>
+                        <td>{{$i->namaKategori['nama_category'] }}</td>
+                        <td>{{$i['item'] }}</td>
+                        <td>@currency($i['hrg_satuan'])</td>
+                        <td>@currency($i['hrg_jumlah'])</td>
+                        <td>{{\Carbon\Carbon::parse($i->tgl_beli)->format('d/m/Y')}}</td>
                         <td class="text-center">
-                            <a href="{{ url('/user-list/'.$row->id.'/edit') }}" class="btn btn-primary btn-sm" role="button">
+                            <a href="{{ url('/beli-barang/'.$i->id_belibarang .'/edit') }}" class="btn btn-primary btn-sm" role="button">
                                 <i class="fa fa-pencil"></i>
                             </a>
-                            <a href="javascript:;" class="btn btn-danger btn-sm" role="button" data-id="{{$row->id}}" data-toggle="modal" onclick="deleteData({{ $row->id }})" data-target="#DeleteModal">
+                            <a href="javascript:;" class="btn btn-danger btn-sm" role="button" data-id="{{$i->id_belibarang}}" data-toggle="modal" onclick="deleteData({{ $i->id_belibarang }})" data-target="#DeleteModal">
                                 <i class="fa fa-trash-o" aria-hidden="true"></i>
                             </a>
                         </td>
@@ -100,7 +110,7 @@
     function deleteData(id)
     {
         var id = id;
-        var url = '{{ route("user-list.destroy", ":id") }}';
+        var url = '{{ route("beli-barang.destroy", ":id") }}';
         url = url.replace(':id', id );
         $("#deleteForm").attr('action', url);
     }

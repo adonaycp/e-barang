@@ -42,35 +42,36 @@ class CategoryController extends Controller
    * @return \Illuminate\Http\Response
    */
 
-  public function store(Request $request)
-  {
-    $user = Auth::user();
+    public function store(Request $request)
+    {
+        $user = Auth::user();
 
-    $nama_category = $request->input('nama_category');
-    $status = $request->input('status');
+        $nama_category = $request->input('nama_category');
+        $status = $request->input('status');
 
-    // dd($nama_category);
-    DB::beginTransaction();
+        // dd($nama_category);
+        DB::beginTransaction();
 
-    try {
-      $category = Category::create([
-        'nama_category' => $nama_category,
-        'status' => $status,
-      ]);
+        try {
+            $category = Category::create([
+            'nama_category' => $nama_category,
+            'status' => $status,
+            ]);
 
-      $category->save();
+            $category->save();
 
-      DB::commit();
+            DB::commit();
 
-      return redirect::to('category')
-        ->with('success','Data berhasil disimpan.');
-    } 
-      catch (\Throwable $t) {
-        DB::rollback();
-        return redirect::to('category')
-          ->with('warning','Data gagal disimpan. Input data kembali.');
+            return redirect::to('category')
+            ->with('success','Data berhasil disimpan.');
+        } 
+        catch (\Throwable $t) {
+            DB::rollback();
+            return redirect::to('category')
+                ->with('warning','Data gagal disimpan. Input data kembali.');
         }
-  }
+        
+    }
 
     /**
      * Display the specified resource.

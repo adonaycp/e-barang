@@ -10,14 +10,14 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 class="m-0 text-dark ">Input Data Ambil Barang</h1>
+              <h1 class="m-0 text-dark ">Input Data Saldo Awal</h1>
             </div>
             <div class="col-sm-6">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ url('/home') }}">Home</a></li>
-                        <li class="breadcrumb-item"><a href="{{ url('/ambil-barang') }}">Data Ambil Barang</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Input Data Ambil Barang</li>
+                        <li class="breadcrumb-item"><a href="{{ url('/saldo-awal') }}">Data Saldo Awal</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Input Data Saldo Awal</li>
                     </ol>
                 </nav>
             </div>
@@ -27,11 +27,11 @@
 
 <div class="card card-primary">
     <div class="card-header">
-        <h3 class="card-title">Input Data Ambil Barang</h3>
+        <h3 class="card-title">Input Data Saldo Awal</h3>
     </div>
   <!-- /.card-header -->
   <!-- form start -->
-    {!! Form::open(['url' => 'ambil-barang', 'method' => 'POST']) !!}
+    {!! Form::open(['url' => 'saldo-awal', 'method' => 'POST']) !!}
         {!! csrf_field() !!}
         <div class="card-body">
             <div class="form-group col-sm-6">
@@ -70,17 +70,9 @@
 
                 </div>
 
-                <label for="status" class="sorting_asc" tabindex="0">Nama Pengambil:</label><br/>
-                <input type="text" name="nama_pengambil" id="nama_pengambil" class="form-control" value="" required>
+                <label for="status">Tahun:</label><br/>
+                <input type="number" name="tahun" id="tahun" class="form-control" required>
 
-                <label for="status">Bidang</label><br/>
-                <select name="bidang" class="form-control">
-                    <option value="">-Pilih-</option>
-                    <option value="1">Bidang 1</option>
-                    <option value="2">Bidang 2</option>
-                    <option value="3">Bidang 3</option>
-                    <option value="4">Bidang 4</option>
-                </select>
             </div>
         </div>
 
@@ -89,4 +81,5 @@
         </div>
     {!! Form::close() !!}
 </div>
+
 @endsection

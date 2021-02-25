@@ -46,10 +46,12 @@
           <div class="form-check">
             <input class="form-check-input" type="radio" name="status" id="status" value="Tidak Digunakan" {{ $categories->status == 'Tidak Digunakan' ? 'checked' : ''}} required>
             <label class="form-check-label" for="flexRadioDefault2">Tidak Digunakan</label>
-            </div>
+          </div>
         </div>
+
       </div>
     </div>
+
     <div class="card-footer">
       {{ Form::submit('Simpan Data', ['class' => 'btn btn-primary']) }}
     </div>

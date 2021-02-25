@@ -74,7 +74,7 @@
 <div id="DeleteModal" class="modal fade text-danger" role="dialog">
     <div class="modal-dialog ">
         <!-- Modal content-->
-        <form action="{{ route('category.destroy', $row->id_category)}}" id="deleteForm" method="POST">   
+        <form action="" id="deleteForm" method="POST">   
             <div class="modal-content">
                 <div class="modal-header bg-danger">
                     <h4 class="modal-title">Konfirmasi Hapus</h4>
