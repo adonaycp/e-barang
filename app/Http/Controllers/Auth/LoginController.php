@@ -47,7 +47,7 @@ class LoginController extends Controller
             'username' => 'required',
             'password' => 'required|min:6',
         ],[
-            'min' => 'minimal karakter password berjumlah 6'
+            'min' => 'jumlah minimal karakter password adalah 6 karakter'
         ]);
   
         $fieldType = filter_var($request->username, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';

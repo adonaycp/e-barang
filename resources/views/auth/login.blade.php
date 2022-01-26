@@ -40,6 +40,8 @@
         </div>
 
         
+
+        
         <div class="input-group mb-3">
           <input type="password" class="form-control" name="password" id="password" placeholder="Password">
           <div class="input-group-append">
@@ -47,6 +49,11 @@
               <span class="fas fa-lock"></span>
             </div>
           </div>
+          @error('password')
+          <small class="text-danger">
+          {{ $message }}
+          </small>
+        @enderror
         </div>
         <div class="row">
           <!-- /.col -->
@@ -75,9 +82,7 @@
 <!-- AdminLTE App -->
 <script src="{{ asset('assets_backend/dist/js/adminlte.min.js') }}"></script>
 
-{{-- sweet alert --}}
-<script src="{{ asset('template-dashboard') }}/js/sweetalert2/sweetalert2.all.min.js"></script>
-{{-- <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> --}}
+
 
 
 
