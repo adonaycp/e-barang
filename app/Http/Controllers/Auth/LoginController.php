@@ -45,16 +45,28 @@ class LoginController extends Controller
   
         $this->validate($request, [
             'username' => 'required',
-            'password' => 'required',
+            'password' => 'required|min:6',
+        ],[
+            'min' => 'minimal karakter password berjumlah 6'
         ]);
   
         $fieldType = filter_var($request->username, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+        // var_dump(filter_var($request->username, FILTER_VALIDATE_EMAIL));
+        // die;
 
-        if (auth()->attempt(array($fieldType => $input['username'], 'password' => $input['password']))) {
-            return redirect()->route('home');
-        } else {
-            return redirect()->route('login')->with('error','email atau password salah');
+        if (filter_var($request->username, FILTER_VALIDATE_EMAIL)){
+
+            if (auth()->attempt(array($fieldType => $input['username'], 'password' => $input['password']))) {
+                return redirect()->route('home')->with('pesan','Selamat Datang!');
+            } 
+            
+            
+             else {
+                return redirect()->route('login')->with('pesan','email atau password salah');
+            }
+        }else
+        {
+            return redirect()->route('login')->with('pesan','format email salah!');
         }
-          
     }
 }

@@ -66,7 +66,7 @@
 <!-- /.login-box -->
 
 {{-- flash data --}}
-<div class="flash-data" data-flashdata="{{ session('error') }}"></div>
+<div class="flash-data" data-flashdata="{{ session('pesan') }}"></div>
 
 <!-- jQuery -->
 <script src="{{ asset('assets_backend/plugins/jquery/jquery.min.js') }}"></script>
@@ -79,26 +79,9 @@
 <script src="{{ asset('template-dashboard') }}/js/sweetalert2/sweetalert2.all.min.js"></script>
 {{-- <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> --}}
 
-<script>
-  const flashData = $('.flash-data').data('flashdata');
-console.log(flashData);
 
-if (flashData == "email atau password salah")
-{
-    // Swal.fire({
-    //     icon: 'success',
-    //     title: 'Berhasil!',
-    //     text: 'Data' . flashData
-    // })
 
-        Swal.fire({
-        icon: 'warning',
-        title: 'Tidak berhasil masuk',
-        text:  flashData
-        })
-
-}
-</script>
+@include('notifikasi')
 
 </body>
 </html>

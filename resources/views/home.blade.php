@@ -19,4 +19,11 @@
         </div>
     </div>
 </div>
+<div class="flash-data" data-flashdata="{{ session('pesan') }}"></div>
+
+<!-- jQuery -->
+<script src="{{ asset('assets_backend/plugins/jquery/jquery.min.js') }}"></script>
+
+
+@include('notifikasi')
 @endsection
