@@ -38,6 +38,8 @@
             </div>
           </div>
         </div>
+
+        
         <div class="input-group mb-3">
           <input type="password" class="form-control" name="password" id="password" placeholder="Password">
           <div class="input-group-append">
@@ -63,12 +65,40 @@
 </div>
 <!-- /.login-box -->
 
+{{-- flash data --}}
+<div class="flash-data" data-flashdata="{{ session('error') }}"></div>
+
 <!-- jQuery -->
 <script src="{{ asset('assets_backend/plugins/jquery/jquery.min.js') }}"></script>
 <!-- Bootstrap 4 -->
 <script src="{{ asset('assets_backend/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('assets_backend/dist/js/adminlte.min.js') }}"></script>
+
+{{-- sweet alert --}}
+<script src="{{ asset('template-dashboard') }}/js/sweetalert2/sweetalert2.all.min.js"></script>
+{{-- <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> --}}
+
+<script>
+  const flashData = $('.flash-data').data('flashdata');
+console.log(flashData);
+
+if (flashData == "email atau password salah")
+{
+    // Swal.fire({
+    //     icon: 'success',
+    //     title: 'Berhasil!',
+    //     text: 'Data' . flashData
+    // })
+
+        Swal.fire({
+        icon: 'warning',
+        title: 'Tidak berhasil masuk',
+        text:  flashData
+        })
+
+}
+</script>
 
 </body>
 </html>
