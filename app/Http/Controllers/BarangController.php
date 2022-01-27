@@ -37,8 +37,13 @@ class BarangController extends Controller
         // $jenis = $barang->getDataSelectCategory();
         
         $categories = Category::all();
+        $kategori_tersedia = DB::table('category')->where('status','Digunakan')->get();
 
-        return view('barang.create', compact('categories'));
+
+        // var_dump($kategori_tersedia);die;
+
+
+        return view('barang.create', compact('categories','kategori_tersedia'));
     }
 
     /**
@@ -128,8 +133,9 @@ class BarangController extends Controller
     {
         $categories = Category::all();
         $barangs = DB::table('barang')->where('id_barang', $id_barang)->first();
+        $kategori_tersedia = DB::table('category')->where('status','Digunakan')->get();
 
-        return view('barang.edit', compact('barangs', 'categories'));
+        return view('barang.edit', compact('barangs', 'categories','kategori_tersedia'));
     }
 
     /**

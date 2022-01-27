@@ -41,7 +41,7 @@
             <label for="jenis">Jenis</label><br/> 
                 <select name="id_category" class="form-control">
                 <option value="">-Pilih-</option>
-                @foreach($categories as $item)
+                @foreach($kategori_tersedia as $item)
                     <option value="{{$item->id_category}}">{{$item->nama_category}}</option>
                 @endforeach
             </select>

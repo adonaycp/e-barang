@@ -41,7 +41,7 @@
                 
                 <label for="jenis">Jenis</label><br/> 
                 <select name="id_category" class="form-control">
-                    @foreach($categories as $item)
+                    @foreach($kategori_tersedia as $item)
                         <option value="{{$item->id_category}}"
                         @if ($item->id_category === $barangs->id_category)
                             selected="selected"

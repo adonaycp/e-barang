@@ -23,6 +23,11 @@ class Category extends Model
     
         return $data;
     }
+
+    public function getKategoriTersedia()
+    {
+        return DB::table('category')->where('status','Digunakan');
+    }
 }
 
 
