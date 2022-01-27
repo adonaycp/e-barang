@@ -17,8 +17,11 @@ class CategoryController extends Controller
    */
   public function index()
   {
-    // $category = Category::get()->all();
-    $category = Category::get();
+    $category = Category::get()->all();
+    // $category = Category::get();
+    // $category2 = Category->getViewCategory();
+
+    // dd($category2);die;
 
     return view('category.index', compact('category'));
   }
@@ -48,6 +51,18 @@ class CategoryController extends Controller
 
         $nama_category = $request->input('nama_category');
         $status = $request->input('status');
+        $list_nama_category = DB::table('category')->pluck('nama_category')->toArray();
+
+        // var_dump($list_nama_category);die;
+
+        // memeriksa nama kategori
+        if (in_array($nama_category, $list_nama_category))
+        {
+            // return redirect()->route('category')->with('pesan','nama kategori telah digunakan!');
+            return redirect::to('category')
+            ->with('warning','nama kategori telah digunakan!');
+            die;
+        }
 
         // dd($nama_category);
         DB::beginTransaction();
