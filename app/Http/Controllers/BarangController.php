@@ -61,6 +61,19 @@ class BarangController extends Controller
         $tahun = $request->input('tahun');
         $id_category = $request->input('id_category');
 
+        $list_nama_barang = DB::table('barang')->pluck('nama_brg')->toArray();
+
+        // var_dump($list_nama_category);die;
+
+        // memeriksa nama kategori
+        if (in_array($nama_brg, $list_nama_barang))
+        {
+            // return redirect()->route('category')->with('pesan','nama kategori telah digunakan!');
+            return redirect::to('barang')
+            ->with('warning','nama barang telah digunakan!');
+            die;
+        }
+
         DB::beginTransaction();
 
         try 
