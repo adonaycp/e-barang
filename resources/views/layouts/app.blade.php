@@ -137,12 +137,12 @@
             </a>
           </li>
 
-          <li class="nav-item has-treeview">
+          {{-- <li class="nav-item has-treeview">
             <a href="{{ url('/saldo-awal') }}" class="nav-link {{(request()->segment(1) == 'saldo-awal') ? 'active' : ''}}">
               <i class="fa fa-money nav-icon" aria-hidden="true"></i>
               <p>Saldo Awal</p>
             </a>
-          </li>
+          </li> --}}
 
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">

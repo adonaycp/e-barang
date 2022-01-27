@@ -31,7 +31,7 @@
     </div>
     <!-- /.card-header -->
     <!-- form start -->
-    <form action="{{ route('barang.update', $barangs->id_barang)}}" method = POST>
+    <form action="{{ route('barang.update', $barangs->id_barang)}}" method = "POST" id="form-edit">
         {!! csrf_field() !!}
         @method('patch')
         <div class="card-body">
@@ -76,8 +76,35 @@
         </div>
 
         <div class="card-footer">
-        {{ Form::submit('Simpan Data', ['class' => 'btn btn-primary']) }}
+        {{-- {{ Form::submit('Simpan Data', ['class' => 'btn btn-primary']) }} --}}
+
+        {{-- <button class="btn btn-primary" type="submit">Simpan</button> --}}
+
+        <a href="javascript:void(0);" class="btn btn-primary" data-toggle="modal" data-target="#EditModal">Simpan Data</a>
         </div>
+
+        <!--Delete Model-->
+<div id="EditModal" class="modal fade text-danger" role="dialog">
+    <div class="modal-dialog ">
+        <!-- Modal content-->
+          
+            <div class="modal-content">
+                <div class="modal-header bg-warning">
+                    <h4 class="modal-title">Konfirmasi Edit</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    
+                    <p class="text-center">Apakah yakin edit data ?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal">Cancel</button>
+                    <button type="submit" name="" class="btn btn-warning" data-dismiss="modal" onclick="formSubmit()">Edit</button>
+                </div>
+            </div>
+        
+    </div>
+</div>
 
         <script type="text/javascript">
             (function(){
@@ -103,6 +130,11 @@
                 document.getElementById('hrg_jumlah').value = hrg_jumlah;
                 }
             };
+
+            function formSubmit()
+            {
+                $('#form-edit').submit();
+            }
  
         </script>
     {!! Form::close() !!}
