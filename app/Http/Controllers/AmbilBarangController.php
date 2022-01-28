@@ -60,7 +60,7 @@ class AmbilBarangController extends Controller
         $this->validate($request, [
             'total_ambil' => 'required|numeric|gt:0|not_in:0',
         ],[
-            'gt' => 'Jumlah minimal 1'
+            'gt' => 'Angka harus lebih besar dari 0'
         ]);
 
 
@@ -69,18 +69,13 @@ class AmbilBarangController extends Controller
         $stok_ambil_barang = DB::table('ambilbarang')->where('id_barang',$id_barang)->pluck('total_ambil')->first();
         $total_stok_barang = $stok_barang - $stok_ambil_barang;
 
+        // membandingkan jumlah yang diambil dengan stok yang tersedia
         if ($total_ambil > $total_stok_barang)
         {
             return redirect::to('ambil-barang')
                 ->with('warning','Jumlah barang yang diambil tidak boleh melebihi stok barang!');
         }
 
-
-        
-        
-        // var_dump($total_stok_barang);die;
-
-        
 
         DB::beginTransaction();
 
@@ -151,6 +146,14 @@ class AmbilBarangController extends Controller
      */
     public function update(Request $request, $id_ambilbarang)
     { 
+
+        //Validate Total Barang Positif
+        $this->validate($request, [
+            'total_ambil' => 'required|numeric|gt:0|not_in:0',
+        ],[
+            'gt' => 'Angka harus lebih besar dari 0'
+        ]);
+        
         $barangs = Barang::all();
         $categories = Category::all();
         $user = Auth::user();
@@ -163,6 +166,8 @@ class AmbilBarangController extends Controller
         'bidang' => $request->bidang,
         'operatorinput' =>$user->id
         ]);
+
+        
         
         return redirect('ambil-barang')->with('success', 'Data Sudah Terupdate');
 

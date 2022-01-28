@@ -66,6 +66,14 @@
                 <label for="status" class="sorting_asc" tabindex="0">Total Ambil:</label><br/>
                 <input type="number" name="total_ambil" id="total_ambil" class="form-control" value="{{ $ambilbarang->total_ambil }}" required>
 
+                @error('total_ambil')
+                <div>
+                    <small class="text-danger">
+                    {{ $message }}
+                    </small>
+                </div>
+                @enderror
+
                     <label for="status">Tanggal Ambil:</label><br/>
                     <input date-format="yyyy-mm-dd" name="tgl_ambil" id="tgl_ambil" class="form-control" value="{{ $ambilbarang->tgl_ambil }}">
                     <script type="text/javascript">

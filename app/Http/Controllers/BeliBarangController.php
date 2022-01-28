@@ -52,6 +52,14 @@ class BeliBarangController extends Controller
         $tgl_beli = date("Y-m-d", strtotime($request->tgl_beli));
         $operatorinput = $user->id;
 
+        //Validate Total Barang Positif
+        $this->validate($request, [
+            'item' => 'required|numeric|gt:0|not_in:0',
+            'hrg_satuan' => 'required|numeric|gt:0|not_in:0',
+        ],[
+            'gt' => 'Angka harus lebih besar dari 0'
+        ]);
+
         DB::beginTransaction();
 
         try
@@ -120,6 +128,14 @@ class BeliBarangController extends Controller
      */
     public function update(Request $request, $id_belibarang)
     {
+        //Validate Total Barang Positif
+        $this->validate($request, [
+            'item' => 'required|numeric|gt:0|not_in:0',
+            'hrg_satuan' => 'required|numeric|gt:0|not_in:0',
+        ],[
+            'gt' => 'Angka harus lebih besar dari 0'
+        ]);
+        
         $barangs = Barang::all();
         $categories = Category::all();
         $user = Auth::user();

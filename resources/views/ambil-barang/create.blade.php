@@ -52,12 +52,12 @@
                 </select>
 
                 <label for="status" class="sorting_asc" tabindex="0">Total Ambil:</label><br/>
-                <input type="number" name="total_ambil" id="total_ambil" class="form-control" value="" required>
+                <input type="number" name="total_ambil" value="{{ old('total_ambil') }}" id="total_ambil" class="form-control" value="" required>
                 @error('total_ambil')
-          <small class="text-danger">
-          {{ $message }}
-          </small>
-        @enderror
+                <small class="text-danger">
+                {{ $message }}
+                </small>
+                @enderror
                 <div class="tanggal">
                     <label for="status">Tanggal Ambil:</label><br/>
                     <input date-format="yyyy-mm-dd" name="tgl_ambil" id="tgl_ambil" class="form-control" required>

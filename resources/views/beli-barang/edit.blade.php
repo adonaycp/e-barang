@@ -62,11 +62,23 @@
 
                 <div id="penghitungan">
                     <label for="status" class="sorting_asc" tabindex="0">Item:</label><br/>
-                    <input type="number" min="0" name="item" id="item" class="form-control" onkeyup="hitung()" value="{{ $belibarang->item }}">
-
+                    <input type="number"  name="item" id="item" class="form-control" onkeyup="hitung()" value="{{ $belibarang->item }}">
+                    @error('item')
+                    <div>
+                        <small class="text-danger">
+                        {{ $message }}
+                        </small>
+                    </div>
+                    @enderror
                     <label for="status">Harga Satuan:</label><br/>
-                    <input type="number" min="0" name="hrg_satuan" id="hrg_satuan" class="form-control" onkeyup="hitung()" value="{{ $belibarang->hrg_satuan }}">
-                    
+                    <input type="number"  name="hrg_satuan" id="hrg_satuan" class="form-control" onkeyup="hitung()" value="{{ $belibarang->hrg_satuan }}">
+                    @error('hrg_satuan')
+                    <div>
+                        <small class="text-danger">
+                        {{ $message }}
+                        </small>
+                    </div>
+                    @enderror
                     <label for="status">Harga Jumlah:</label><br/>
                     <input type="number" min="0" name="hrg_jumlah" id="hrg_jumlah" class="form-control" value="@currency($belibarang->hrg_jumlah)" readonly="readonly">
                 </div>
