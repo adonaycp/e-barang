@@ -56,6 +56,32 @@ class AmbilBarangController extends Controller
         $bidang = $request->input('bidang');
         $operatorinput = $user->id;
 
+        //Validate Total Barang Positif
+        $this->validate($request, [
+            'total_ambil' => 'required|numeric|gt:0|not_in:0',
+        ],[
+            'gt' => 'Jumlah minimal 1'
+        ]);
+
+
+        // identifikasi stok barang
+        $stok_barang = DB::table('barang')->where('id_barang',$id_barang)->pluck('item')->first();
+        $stok_ambil_barang = DB::table('ambilbarang')->where('id_barang',$id_barang)->pluck('total_ambil')->first();
+        $total_stok_barang = $stok_barang - $stok_ambil_barang;
+
+        if ($total_ambil > $total_stok_barang)
+        {
+            return redirect::to('ambil-barang')
+                ->with('warning','Jumlah barang yang diambil tidak boleh melebihi stok barang!');
+        }
+
+
+        
+        
+        // var_dump($total_stok_barang);die;
+
+        
+
         DB::beginTransaction();
 
         try

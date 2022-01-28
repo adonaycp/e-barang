@@ -74,6 +74,8 @@
                 <input type="number" name="tahun" id="tahun" class="form-control" value="{{ $barangs->tahun }}" required>
             </div>
         </div>
+    {!! Form::close() !!}
+
 
         <div class="card-footer">
         {{-- {{ Form::submit('Simpan Data', ['class' => 'btn btn-primary']) }} --}}
@@ -137,6 +139,5 @@
             }
  
         </script>
-    {!! Form::close() !!}
 </div>
 @endsection
