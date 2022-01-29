@@ -77,7 +77,55 @@
             <div class="card-footer">
                 {{ Form::submit('Simpan Data', ['class' => 'btn btn-primary']) }}
             </div>
-        {!! Form::close() !!}
+        </form>
+    </div>
+</div>
+
+<div class="col-sm-12">
+    {{-- ganti password --}}
+    <div class="card card">
+      <div class="card-header text-bold">Ganti Password</div>
+        
+        <form action="{{ route('updatePassword')}}" method="post">
+            @csrf
+            @method('PUT')
+            <div class="card-body">
+                <div class="form-group col-md-6"> 
+                    <label for="password_lama">Password Lama</label>
+                    <input type="password" class="form-control" name="password_lama" id="password_lama">
+                    @error('password_lama')
+                    <div>
+                        <small class="text-danger">
+                        {{ $message }}
+                        </small>
+                    </div>
+                    @enderror
+                    <label for="password_baru">Password Baru</label>
+                    <input type="password" class="form-control" name="password_baru" id="password_baru">
+                    @error('password_baru')
+                    <div>
+                        <small class="text-danger">
+                        {{ $message }}
+                        </small>
+                    </div>
+                    @enderror
+                    <label for="password_konfirmasi">Password Konfirmasi</label>
+                    <input type="password" class="form-control" name="password_konfirmasi" id="password_konfirmasi">
+                    @error('password_konfirmasi')
+                    <div>
+                        <small class="text-danger">
+                        {{ $message }}
+                        </small>
+                    </div>
+                    @enderror
+                    
+                </div>
+            </div>
+
+            <div class="card-footer">
+                {{ Form::submit('Simpan Data', ['class' => 'btn btn-primary']) }}
+            </div>
+        </form>
     </div>
 </div>
 @endsection

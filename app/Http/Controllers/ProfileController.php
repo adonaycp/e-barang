@@ -71,4 +71,36 @@ class ProfileController extends Controller
         
     }
 
+  public function updatePassword(Request $request)
+    {
+        $this->validate($request, [
+          'password_lama' => 'required|min:6',
+          'password_baru' => 'required|min:6',
+          'password_konfirmasi' => 'required|min:6|same:password_baru',
+        ],[
+          'required' => 'Kolom harus diisi',
+          'min' => 'Jumlah minimal karakter adalah 6 karakter',
+          'same' => 'password konfirmasi tidak cocok'
+        ]);
+        // $barangs = Barang::all();
+        // $categories = Category::all();
+        $user = Auth::user()->id;
+        $userPassword = Auth::user()->password;
+
+        if (Hash::check($request->password_lama, $userPassword)) {
+
+          $users = DB::table('users')->where('id', $user)->update([
+  
+              'password' => Hash::make($request->password_baru),
+          ]);
+
+          return redirect('profile')->with('success', 'Data Sudah Terupdate');
+
+        }else{
+          return redirect('profile')->with('error', 'Password Salah!');
+
+        }
+        
+    }
+
 }
