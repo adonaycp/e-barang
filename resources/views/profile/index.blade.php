@@ -39,19 +39,38 @@
     <div class="card card-primary">
         <div class="card-header">Hello {{Auth::user()->name}}!</div>
         
-        <form action="{{ route('gantiPassword')}}" method="post">
+        <form action="{{ route('updateProfile')}}" method="post">
             @csrf
             @method('PUT')
             <div class="card-body">
                 <div class="form-group col-md-6"> 
                     <label for="name">Name</label>
-                    <input type="text" class="form-control" name="username" id="username" value="{{ Auth::user()->name }}">
-
+                    <input type="text" class="form-control" name="name" id="name" value="{{ Auth::user()->name }}">
+                    @error('name')
+                    <div>
+                        <small class="text-danger">
+                        {{ $message }}
+                        </small>
+                    </div>
+                    @enderror
                     <label for="name">Username</label>
                     <input type="text" class="form-control" name="username" id="username" value="{{ Auth::user()->username }}">
-
+                    @error('username')
+                    <div>
+                        <small class="text-danger">
+                        {{ $message }}
+                        </small>
+                    </div>
+                    @enderror
                     <label for="password">Password</label>
-                    <input type="text" name="password" id="password" class="form-control" value="">
+                    <input type="password" name="password" id="password" class="form-control" value="">
+                    @error('password')
+                    <div>
+                        <small class="text-danger">
+                        {{ $message }}
+                        </small>
+                    </div>
+                    @enderror
                 </div>
             </div>
 

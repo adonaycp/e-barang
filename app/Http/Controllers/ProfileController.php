@@ -29,15 +29,46 @@ class ProfileController extends Controller
     // }
     // dd($user);
       
-  public function gantiPassword(Request $request)
-  {
-    // dd($request);
-    $user = Auth::user();
-    $user->name = $request->name;
-    $user->username = $request->username;
-    $user->password = Hash::make($request->password);
-    $user->save();
-    return view('profile.index');
-  }
+  // public function gantiPassword(Request $request)
+  // {
+  //   // dd($request);
+  //   $user = Auth::user();
+  //   $user->name = $request->name;
+  //   $user->username = $request->username;
+  //   $user->password = Hash::make($request->password);
+  //   $user->save();
+  //   return view('profile.index');
+  // }
+
+  public function updateProfile(Request $request)
+    {
+        $this->validate($request, [
+          'name' => 'required',
+          'username' => 'required',
+          'password' => 'required',
+        ],[
+          'required' => 'Kolom harus diisi'
+        ]);
+        // $barangs = Barang::all();
+        // $categories = Category::all();
+        $user = Auth::user()->id;
+        $userPassword = Auth::user()->password;
+
+        if (Hash::check($request->password, $userPassword)) {
+
+          $users = DB::table('users')->where('id', $user)->update([
+  
+              'name' => $request->name,
+              'username' => $request->username
+          ]);
+
+          return redirect('profile')->with('success', 'Data Sudah Terupdate');
+
+        }else{
+          return redirect('profile')->with('error', 'Password Salah!');
+
+        }
+        
+    }
 
 }

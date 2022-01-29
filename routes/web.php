@@ -27,6 +27,8 @@ Auth::routes();
 Route::resource('/profile', 'ProfileController');
 
 Route::put('/gantiPassword', 'ProfileController@gantiPassword')->name('gantiPassword');
+Route::put('/updateProfile', 'ProfileController@updateProfile')->name('updateProfile');
+Route::put('/updatePassword', 'PasswordController@updatePassword')->name('updatePassword');
 
 Route::get('/home', 'HomeController@index')->name('home');
 
