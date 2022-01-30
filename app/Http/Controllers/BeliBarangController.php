@@ -9,6 +9,8 @@ use App\Category;
 use App\Barang;
 use DB;
 use Auth;
+use PDF;
+use App;
 
 class BeliBarangController extends Controller
 {
@@ -166,5 +168,18 @@ class BeliBarangController extends Controller
         $belibarang = DB::table('belibarang')->where('id_belibarang', $id_belibarang)->delete();
         return redirect('beli-barang')->with('success', 'Data Berhasil Dihapus');
 
+    }
+
+    public function print()
+    {
+        // $pdf = PDF::loadView('beli-barang.cetak')->setPaper('A4','landscape');
+        // // $pdf->loadHTML('<h1>Test</h1>');
+        // return $pdf->stream();
+
+        // $pdf = App::make('dompdf.wrapper');
+        // $pdf->loadHTML('<h1>Test</h1>');
+        // return $pdf->stream();
+
+        return view('beli-barang.cetak');
     }
 }

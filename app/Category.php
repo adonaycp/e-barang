@@ -26,7 +26,7 @@ class Category extends Model
 
     public function getKategoriTersedia()
     {
-        return DB::table('category')->where('status','Digunakan');
+        return DB::table('category')->where('status','Digunakan')->get();
     }
 }
 

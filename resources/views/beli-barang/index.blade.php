@@ -19,7 +19,7 @@
     </div>
 </div>
 
-<div class="col-sm-12">
+<div class="col-sm-12" >
     @if(session()->get('success'))
         <div class="alert alert-success">
             {{ session()->get('success') }}
@@ -37,8 +37,8 @@
                 <a href="{{ url('/beli-barang/create') }}" class="btn bg-gradient-primary btn-md" role="button">
                 <i class="fa fa-plus" aria-hidden="true"></i> Tambah Data</a>&nbsp;&nbsp;
                 
-                <a href="" class="btn bg-gradient-secondary btn-md" role="button">
-                <i class="fa fa-plus" aria-hidden="true"></i> Cetak</a>&nbsp;&nbsp;
+                <a href="beli-barang/cetak" target="_blank" class="btn bg-gradient-secondary btn-md" role="button">
+                <i class="fa fa-print" aria-hidden="true"></i> Cetak</a>&nbsp;&nbsp;
             </div>
         </div>
         <!-- /.card-header -->

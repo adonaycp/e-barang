@@ -32,6 +32,8 @@ Route::put('/updatePassword', 'ProfileController@updatePassword')->name('updateP
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/beli-barang/cetak', 'BeliBarangController@print');
+
 Route::resource('/category', 'CategoryController');
 
 Route::resource('/barang', 'BarangController');
