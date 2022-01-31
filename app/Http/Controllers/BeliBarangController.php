@@ -172,9 +172,9 @@ class BeliBarangController extends Controller
 
     public function print()
     {
-        // $pdf = PDF::loadView('beli-barang.cetak')->setPaper('A4','landscape');
-        // // $pdf->loadHTML('<h1>Test</h1>');
-        // return $pdf->stream();
+        $pdf = PDF::loadView('beli-barang.cetak')->setPaper('A4','landscape');
+        // $pdf->loadHTML('<h1>Test</h1>');
+        return $pdf->stream();
 
         // $pdf = App::make('dompdf.wrapper');
         // $pdf->loadHTML('<h1>Test</h1>');

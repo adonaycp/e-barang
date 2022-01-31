@@ -8,6 +8,7 @@ use App\Barang;
 use App\Category;
 use DB;
 use Auth;
+use PDF;
 
 class BarangController extends Controller
 {
@@ -22,7 +23,7 @@ class BarangController extends Controller
         * untuk menampilkan nama kategori di tabel jenis barang
         */
         $barang = Barang::with('namaKategori')->get();
-        $tanggalInput = DB::table('barang')->pluck('tgl_input')->toArray();
+        // $tanggalInput = DB::table('barang')->pluck('tgl_input')->toArray();
 
         $periode = [];
         
@@ -193,6 +194,34 @@ class BarangController extends Controller
         $user = Auth::user();
         $barangs = DB::table('barang')->where('id_barang', $id_barang)->delete();
         return redirect('barang')->with('success', 'Data Berhasil Dihapus');
+    }
+
+    public function cetak($tanggal_dari = NULL,$tanggal_sampai = NULL)
+    {
+        
+
+        $barang = Barang::with('namaKategori')->get();
+        // $tanggalInput = DB::table('barang')->pluck('tgl_input')->toArray();
+
+        $periode = [];
+        
+
+        if ($tanggal_dari & $tanggal_sampai)
+        {
+
+            $periode = Barang::with('namaKategori')
+               ->whereBetween('tgl_input', [$tanggal_dari, $tanggal_sampai])
+               ->get();
+            
+            $barang = $periode;
+        }
+
+        // return view('barang.cetak', compact('barang','tanggal_dari','tanggal_sampai'));
+
+        $pdf = PDF::loadView('barang.cetak',['barang' => $barang, 'tanggal_dari' => $tanggal_dari, 'tanggal_sampai' => $tanggal_sampai])->setPaper('A4','landscape');
+        // $pdf->loadHTML('<h1>Test</h1>');
+        return $pdf->stream();
+       
     }
     
 }

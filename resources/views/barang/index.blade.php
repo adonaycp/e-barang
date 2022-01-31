@@ -40,7 +40,15 @@
                     <i class="fa fa-plus" aria-hidden="true"></i> Tambah Data</a>
                 </div>
                 <div class="form-group col-md-2 mb-0">
-                  <a href="#" target="_blank" class="form-control btn bg-gradient-secondary btn-md" role="button">
+                  <a 
+                    @if ($tanggal_dari && $tanggal_sampai)
+                        
+                    href="/barang/cetak/{{ $tanggal_dari }}/{{ $tanggal_sampai }}"
+                    @else
+                    href="/barang/cetak/"
+                    
+                    @endif
+                     id="tombol_cetak" target="_blank" class="form-control btn bg-gradient-secondary btn-md" role="button">
                     <i class="fa fa-print" aria-hidden="true"></i> Cetak</a>
                 </div>
             
@@ -199,7 +207,8 @@
         if ($dari && $sampai && ($dari <= $sampai))
         {
 
-        $("#tombol_terapkan").attr("href", '/barang/'+$dari+'/'+$sampai)
+        $("#tombol_terapkan").attr("href", '/barang/'+$dari+'/'+$sampai);
+        // $("#tombol_cetak").attr("href", 'barang/cetak/'+$dari+'/'+$sampai);
         }
         else{
             $("#tombol_terapkan").attr("href", '#')
@@ -213,7 +222,8 @@
         
         if ($dari && $sampai && ($dari <= $sampai))
         {
-        $("#tombol_terapkan").attr("href", '/barang/'+$dari+'/'+$sampai)
+        $("#tombol_terapkan").attr("href", '/barang/'+$dari+'/'+$sampai);
+        // $("#tombol_cetak").attr("href", 'barang/cetak/'+$dari+'/'+$sampai);
         }
         else{
             $("#tombol_terapkan").attr("href", '#')
