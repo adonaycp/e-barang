@@ -16,7 +16,7 @@ class BarangController extends Controller
         *
         * @return \Illuminate\Http\Response
         */
-    public function index()
+    public function index($tanggal_mulai = NULL,$tanggal_selesai = NULL)
     {
     /**
         * untuk menampilkan nama kategori di tabel jenis barang
@@ -24,7 +24,24 @@ class BarangController extends Controller
         $barang = Barang::with('namaKategori')->get();
         $tanggalInput = DB::table('barang')->pluck('tgl_input')->toArray();
 
-        // dd($tanggalInput);die;
+        $periode = [];
+
+        if ($tanggal_mulai & $tanggal_selesai)
+        {
+
+            $periode = Barang::with('namaKategori')
+               ->whereBetween('tgl_input', [$tanggal_mulai, $tanggal_selesai])
+               ->get();
+            
+            $barang = $periode;
+        }
+
+        // dd($periode);die;
+        // dd($barang);die;
+
+
+
+        // dd($periode);die;
 
         return view('barang.index', compact('barang'));
     }

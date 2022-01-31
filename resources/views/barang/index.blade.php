@@ -1,9 +1,5 @@
 @extends('layouts.app')
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css"/>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css" rel="stylesheet">
-<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
+@include('datepicker')
 @section('content')
 <div class="content-header">
     <div class="container-fluid">
@@ -37,7 +33,7 @@
 
     <div class="card">
         <div class="card-header">
-            
+            <form action="" method="POST" class="mb-0">
             <div class="form-row ">
                 <div class="form-group col-md-2 mb-0">
                   <a href="{{ url('/barang/create') }}" class="form-control btn bg-gradient-primary btn-md" role="button">
@@ -48,27 +44,28 @@
                     <i class="fa fa-print" aria-hidden="true"></i> Cetak</a>
                 </div>
             
+
                 <div class="form-group col-md-1 text-right mb-0">
                 <label class="col-form-label">Dari :</label>
                 </div>
                 <div class="form-group col-md-2 mb-0 tanggal">
-                    <input date-format="yyyy-mm-dd"  class="date form-control"  required>
+                    <input date-format="yyyy-mm-dd" id="tanggal_dari" name="tanggal_dari" class="date form-control"  required>
                 </div>
 
                 <div class="form-group col-md-1 text-right mb-0">
                     <label class="col-form-label">Sampai :</label>
                     </div>
-                <div class="form-group col-md-2 mb-0">
-                  <select id="inputState" class="form-control">
-                    <option selected>Choose...</option>
-                    <option>...</option>
-                  </select>
+                <div class="form-group col-md-2 mb-0 tanggal">
+                    <input date-format="yyyy-mm-dd" id="tanggal_sampai" name="tanggal_sampai" class="date form-control"  required>
                 </div>
                 <div class="form-group col-md-2 mb-0">
-                    <button type="submit" target="_blank" class="form-control btn bg-gradient-warning btn-md" role="button">
-                         Terapkan</button>
+                    <a href="#" id="tombol_terapkan" class="form-control btn bg-gradient-warning btn-md" role="button">
+                         Terapkan</a>
+            
+
                 </div>
               </div>
+            </form>
         </div>
     <!-- /.card-header -->
         <div class="card-body">
@@ -164,5 +161,27 @@
 
             hitung();
         }());
+
+    
+</script>
+
+<script>
+
+    
+    $('#tanggal_dari').change(function() {
+
+        let $dari = $('#tanggal_dari').val();
+        let $sampai = $('#tanggal_sampai').val();
+        
+        $("#tombol_terapkan").attr("href", '/barang/'+$dari+'/'+$sampai)
+     });
+
+    $('#tanggal_sampai').change(function() {
+
+        let $dari = $('#tanggal_dari').val();
+        let $sampai = $('#tanggal_sampai').val();
+        
+        $("#tombol_terapkan").attr("href", '/barang/'+$dari+'/'+$sampai)
+     });
 </script>
 @endsection
