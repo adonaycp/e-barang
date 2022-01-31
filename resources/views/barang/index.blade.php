@@ -49,14 +49,14 @@
                 <label class="col-form-label">Dari :</label>
                 </div>
                 <div class="form-group col-md-2 mb-0 tanggal">
-                    <input date-format="yyyy-mm-dd" id="tanggal_dari" name="tanggal_dari" class="date form-control"  required>
+                    <input date-format="yyyy-mm-dd" id="tanggal_dari" value="{{ $tanggal_dari }}" name="tanggal_dari" class="date form-control"  required>
                 </div>
 
                 <div class="form-group col-md-1 text-right mb-0">
                     <label class="col-form-label">Sampai :</label>
                     </div>
                 <div class="form-group col-md-2 mb-0 tanggal">
-                    <input date-format="yyyy-mm-dd" id="tanggal_sampai" name="tanggal_sampai" class="date form-control"  required>
+                    <input date-format="yyyy-mm-dd" id="tanggal_sampai" name="tanggal_sampai" value="{{ $tanggal_sampai }}" class="date form-control"  required>
                 </div>
                 <div class="form-group col-md-2 mb-0">
                     <a href="#" id="tombol_terapkan" class="form-control btn bg-gradient-warning btn-md" role="button">
