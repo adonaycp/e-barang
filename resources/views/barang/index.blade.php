@@ -1,5 +1,9 @@
 @extends('layouts.app')
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
 @section('content')
 <div class="content-header">
     <div class="container-fluid">
@@ -47,11 +51,8 @@
                 <div class="form-group col-md-1 text-right mb-0">
                 <label class="col-form-label">Dari :</label>
                 </div>
-                <div class="form-group col-md-2 mb-0">
-                  <select id="inputState" class="form-control">
-                    <option selected>Choose...</option>
-                    <option>...</option>
-                  </select>
+                <div class="form-group col-md-2 mb-0 tanggal">
+                    <input date-format="yyyy-mm-dd"  class="date form-control"  required>
                 </div>
 
                 <div class="form-group col-md-1 text-right mb-0">
@@ -151,5 +152,17 @@
     {
         $("#deleteForm").submit();
     }
+
+    (function(){
+            $('.date').datepicker({  
+                weekStart: 1,
+                autoclose:true,
+                todayHighlight:true,
+                format:'yyyy-mm-dd',
+                language: 'id'
+            });
+
+            hitung();
+        }());
 </script>
 @endsection

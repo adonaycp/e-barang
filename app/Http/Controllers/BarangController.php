@@ -22,6 +22,9 @@ class BarangController extends Controller
         * untuk menampilkan nama kategori di tabel jenis barang
         */
         $barang = Barang::with('namaKategori')->get();
+        $tanggalInput = DB::table('barang')->pluck('tgl_input')->toArray();
+
+        // dd($tanggalInput);die;
 
         return view('barang.index', compact('barang'));
     }
