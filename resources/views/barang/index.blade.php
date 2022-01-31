@@ -33,12 +33,41 @@
 
     <div class="card">
         <div class="card-header">
-            <div class="row">
-                <a href="{{ url('/barang/create') }}" class="btn bg-gradient-primary btn-md" role="button">
-                <i class="fa fa-plus" aria-hidden="true"></i> Tambah Data</a>&nbsp;&nbsp;
-                <a href="" class="btn bg-gradient-secondary btn-md" role="button">
-                <i class="fa fa-plus" aria-hidden="true"></i> Cetak</a>&nbsp;&nbsp;
-            </div>
+            
+            <div class="form-row ">
+                <div class="form-group col-md-2 mb-0">
+                  <a href="{{ url('/barang/create') }}" class="form-control btn bg-gradient-primary btn-md" role="button">
+                    <i class="fa fa-plus" aria-hidden="true"></i> Tambah Data</a>
+                </div>
+                <div class="form-group col-md-2 mb-0">
+                  <a href="#" target="_blank" class="form-control btn bg-gradient-secondary btn-md" role="button">
+                    <i class="fa fa-print" aria-hidden="true"></i> Cetak</a>
+                </div>
+            
+                <div class="form-group col-md-1 text-right mb-0">
+                <label class="col-form-label">Dari :</label>
+                </div>
+                <div class="form-group col-md-2 mb-0">
+                  <select id="inputState" class="form-control">
+                    <option selected>Choose...</option>
+                    <option>...</option>
+                  </select>
+                </div>
+
+                <div class="form-group col-md-1 text-right mb-0">
+                    <label class="col-form-label">Sampai :</label>
+                    </div>
+                <div class="form-group col-md-2 mb-0">
+                  <select id="inputState" class="form-control">
+                    <option selected>Choose...</option>
+                    <option>...</option>
+                  </select>
+                </div>
+                <div class="form-group col-md-2 mb-0">
+                    <button type="submit" target="_blank" class="form-control btn bg-gradient-warning btn-md" role="button">
+                         Terapkan</button>
+                </div>
+              </div>
         </div>
     <!-- /.card-header -->
         <div class="card-body">
