@@ -1,39 +1,52 @@
-<table id="barang" class="table table-bordered table-striped">
-    <thead>
-        <tr>
-            <th>No</th>
-            <th>Nama Barang</th>
-            <th>Jenis</th>
-            <th>Item</th>
-            <th>Harga Satuan </th>
-            <th>Harga Jumlah</th>
-            <th>Tanggal Input</th>
-            <th>Tanggal Pembelian</th>
-            <th>Tahun</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach($barang as $row) 
-        <tr>
-            <td>{{ $loop->iteration }}</td>
-            <td>{{$row['nama_brg']}}</td>
-            <td>{{ $row->namaKategori['nama_category'] }}</td>
-            <td>{{$row['item']}}</td>
-            <td>@currency($row['hrg_satuan'])</td>
-            <td>@currency($row['hrg_jumlah'])</td>
-            <td>{{\Carbon\Carbon::parse($row->tgl_input)->format('d/m/Y')}}</td>
-            <td>{{\Carbon\Carbon::parse($row->tgl_pembelian)->format('d/m/Y')}}</td>
-            <td>{{$row['tahun']}}</td>
-            <td class="text-center">
-            <a href="{{ url('/barang/'.$row->id_barang.'/edit') }}" class="btn btn-primary btn-sm" role="button">
-                <i class="fa fa-pencil"></i>
-            </a>
-            <a href="javascript:;" class="btn btn-danger btn-sm" role="button" data-id="{{$row->id_barang}}" data-toggle="modal" onclick="deleteData({{ $row->id_barang }})" data-target="#DeleteModal">
-                <i class="fa fa-trash-o" aria-hidden="true"></i>
-            </a>
-            </td>
-        </tr>
-        @endforeach
-    </tbody>
-</table>
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>E-Barang {{ $tanggal_dari .' - '. $tanggal_sampai }}</title>
+  </head>
+  <body>
+    <table id="barang" class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Nama Barang</th>
+                <th>Jenis</th>
+                <th>Item</th>
+                <th>Harga Satuan </th>
+                <th>Harga Jumlah</th>
+                <th>Tanggal Input</th>
+                <th>Tanggal Pembelian</th>
+                <th>Tahun</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($barang as $row) 
+            <tr>
+                <td>{{ $loop->iteration }}</td>
+                <td>{{$row['nama_brg']}}</td>
+                <td>{{ $row->namaKategori['nama_category'] }}</td>
+                <td>{{$row['item']}}</td>
+                <td>@currency($row['hrg_satuan'])</td>
+                <td>@currency($row['hrg_jumlah'])</td>
+                <td>{{\Carbon\Carbon::parse($row->tgl_input)->format('d/m/Y')}}</td>
+                <td>{{\Carbon\Carbon::parse($row->tgl_pembelian)->format('d/m/Y')}}</td>
+                <td>{{$row['tahun']}}</td>
+                
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    {{-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> --}}
+  </body>
+</html>
