@@ -173,7 +173,14 @@
         let $dari = $('#tanggal_dari').val();
         let $sampai = $('#tanggal_sampai').val();
         
+        if ($dari && $sampai)
+        {
+
         $("#tombol_terapkan").attr("href", '/barang/'+$dari+'/'+$sampai)
+        }
+        else{
+            $("#tombol_terapkan").attr("href", '#')
+        }
      });
 
     $('#tanggal_sampai').change(function() {
@@ -181,7 +188,14 @@
         let $dari = $('#tanggal_dari').val();
         let $sampai = $('#tanggal_sampai').val();
         
+        if ($dari && $sampai)
+        {
+
         $("#tombol_terapkan").attr("href", '/barang/'+$dari+'/'+$sampai)
+        }
+        else{
+            $("#tombol_terapkan").attr("href", '#')
+        }
      });
 </script>
 @endsection
