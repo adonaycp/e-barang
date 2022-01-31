@@ -59,7 +59,7 @@
                     <input date-format="yyyy-mm-dd" id="tanggal_sampai" name="tanggal_sampai" value="{{ $tanggal_sampai }}" class="date form-control"  required>
                 </div>
                 <div class="form-group col-md-2 mb-0">
-                    <a href="#" id="tombol_terapkan" class="form-control btn bg-gradient-warning btn-md" role="button">
+                    <a href="#" id="tombol_terapkan" onclick="terapkan()" class="form-control btn bg-gradient-warning btn-md" role="button">
                          Terapkan</a>
             
 
@@ -162,6 +162,18 @@
             hitung();
         }());
 
+    function terapkan()
+    {
+        if ($('#tombol_terapkan').attr('href') == '#')
+        {
+            Swal.fire({
+          icon: 'warning',
+          title: 'Error',
+          text:  'Format tanggal periode tidak sesuai'
+          })
+        }
+    }
+
     
 </script>
 
@@ -192,12 +204,14 @@
         
         if ($dari && $sampai && ($dari <= $sampai))
         {
-
         $("#tombol_terapkan").attr("href", '/barang/'+$dari+'/'+$sampai)
         }
         else{
             $("#tombol_terapkan").attr("href", '#')
         }
      });
+
+     
 </script>
+@include('notifikasi')
 @endsection
