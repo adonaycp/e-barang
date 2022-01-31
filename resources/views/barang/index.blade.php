@@ -172,8 +172,10 @@
 
         let $dari = $('#tanggal_dari').val();
         let $sampai = $('#tanggal_sampai').val();
+
+        // console.log($dari <= $sampai);
         
-        if ($dari && $sampai)
+        if ($dari && $sampai && ($dari <= $sampai))
         {
 
         $("#tombol_terapkan").attr("href", '/barang/'+$dari+'/'+$sampai)
@@ -188,7 +190,7 @@
         let $dari = $('#tanggal_dari').val();
         let $sampai = $('#tanggal_sampai').val();
         
-        if ($dari && $sampai)
+        if ($dari && $sampai && ($dari <= $sampai))
         {
 
         $("#tombol_terapkan").attr("href", '/barang/'+$dari+'/'+$sampai)
