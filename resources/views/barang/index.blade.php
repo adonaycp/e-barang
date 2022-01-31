@@ -164,7 +164,15 @@
 
     function terapkan()
     {
-        if ($('#tombol_terapkan').attr('href') == '#')
+        let $dari = $('#tanggal_dari').val();
+        let $sampai = $('#tanggal_sampai').val();
+
+        if (!$dari && !$sampai)
+        {
+            $("#tombol_terapkan").attr("href", '/barang/')
+        }
+
+        else if ($('#tombol_terapkan').attr('href') == '#')
         {
             Swal.fire({
           icon: 'warning',
@@ -172,6 +180,7 @@
           text:  'Format tanggal periode tidak sesuai'
           })
         }
+        
     }
 
     
