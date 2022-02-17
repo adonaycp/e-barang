@@ -39,6 +39,8 @@ Route::resource('/category', 'CategoryController');
 Route::get('/barang/{tanggal_mulai}/{tanggal_selesai}', 'BarangController@index');
 Route::get('/barang/cetak/{tanggal_mulai}/{tanggal_selesai}', 'BarangController@cetak');
 Route::get('/barang/cetak/', 'BarangController@cetak');
+Route::get('/barang/view-cetak/{tanggal_mulai}/{tanggal_selesai}', 'BarangController@viewCetak');
+Route::get('/barang/view-cetak/', 'BarangController@viewCetak');
 Route::resource('/barang', 'BarangController');
 // Route::resource('/barang/cetak', 'BarangController@cetak');
 
