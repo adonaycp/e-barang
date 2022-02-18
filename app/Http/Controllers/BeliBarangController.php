@@ -19,10 +19,19 @@ class BeliBarangController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($tanggal_dari = NULL,$tanggal_sampai = NULL)
     {
         $belibarang = BeliBarang::with(['namaBarang'], ['namaKategori'])->get();
-        return view('beli-barang.index', compact('belibarang'));
+
+        if ($tanggal_dari & $tanggal_sampai)
+        {
+
+            $belibarang = BeliBarang::with(['namaBarang'], ['namaKategori'])
+               ->whereBetween('tgl_beli', [$tanggal_dari, $tanggal_sampai])
+               ->get();
+            
+        }
+        return view('beli-barang.index', compact('belibarang','tanggal_dari','tanggal_sampai'));
     }
 
     /**
@@ -170,16 +179,27 @@ class BeliBarangController extends Controller
 
     }
 
-    public function print()
+    public function cetak($tanggal_dari = NULL,$tanggal_sampai = NULL)
     {
-        $pdf = PDF::loadView('beli-barang.cetak')->setPaper('A4','landscape');
+        
+
+        $belibarang = BeliBarang::with(['namaBarang'], ['namaKategori'])->get();
+
+        if ($tanggal_dari & $tanggal_sampai)
+        {
+
+            $belibarang = BeliBarang::with(['namaBarang'], ['namaKategori'])
+               ->whereBetween('tgl_beli', [$tanggal_dari, $tanggal_sampai])
+               ->get();
+            
+        }
+
+        // return view('barang.cetak', compact('barang','tanggal_dari','tanggal_sampai'));
+
+        $pdf = PDF::loadView('beli-barang.cetak',['belibarang' => $belibarang, 'tanggal_dari' => $tanggal_dari, 'tanggal_sampai' => $tanggal_sampai])->setPaper('A4','landscape');
         // $pdf->loadHTML('<h1>Test</h1>');
         return $pdf->stream();
-
-        // $pdf = App::make('dompdf.wrapper');
-        // $pdf->loadHTML('<h1>Test</h1>');
-        // return $pdf->stream();
-
-        return view('beli-barang.cetak');
+       
     }
+
 }

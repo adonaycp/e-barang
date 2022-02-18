@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@include('datepicker')
 
 @section('content')
 <div class="content-header">
@@ -33,41 +34,47 @@
 
     <div class="card">
         <div class="card-header">
-            
+            <form action="" method="POST" class="mb-0">
             <div class="form-row ">
                 <div class="form-group col-md-2 mb-0">
-                  <a href="{{ url('/beli-barang/create') }}" class="form-control btn bg-gradient-primary btn-md" role="button">
+                  <a href="{{ url('/barang/create') }}" class="form-control btn bg-gradient-primary btn-md" role="button">
                     <i class="fa fa-plus" aria-hidden="true"></i> Tambah Data</a>
                 </div>
                 <div class="form-group col-md-2 mb-0">
-                  <a href="beli-barang/cetak" target="_blank" class="form-control btn bg-gradient-secondary btn-md" role="button">
+                  <a 
+                    @if ($tanggal_dari && $tanggal_sampai)
+                        
+                    href="/beli-barang/cetak/{{ $tanggal_dari }}/{{ $tanggal_sampai }}"
+                    @else
+                    href="/beli-barang/cetak/"
+                    
+                    @endif
+                     id="tombol_cetak" target="_blank" class="form-control btn bg-gradient-secondary btn-md" role="button">
                     <i class="fa fa-print" aria-hidden="true"></i> Cetak</a>
                 </div>
             
+
                 <div class="form-group col-md-1 text-right mb-0">
                 <label class="col-form-label">Dari :</label>
                 </div>
-                <div class="form-group col-md-2 mb-0">
-                  <select id="inputState" class="form-control">
-                    <option selected>Choose...</option>
-                    <option>...</option>
-                  </select>
+                <div class="form-group col-md-2 mb-0 tanggal">
+                    <input date-format="yyyy-mm-dd" id="tanggal_dari" value="{{ $tanggal_dari }}" name="tanggal_dari" class="date form-control"  required>
                 </div>
 
                 <div class="form-group col-md-1 text-right mb-0">
                     <label class="col-form-label">Sampai :</label>
                     </div>
-                <div class="form-group col-md-2 mb-0">
-                  <select id="inputState" class="form-control">
-                    <option selected>Choose...</option>
-                    <option>...</option>
-                  </select>
+                <div class="form-group col-md-2 mb-0 tanggal">
+                    <input date-format="yyyy-mm-dd" id="tanggal_sampai" name="tanggal_sampai" value="{{ $tanggal_sampai }}" class="date form-control"  required>
                 </div>
                 <div class="form-group col-md-2 mb-0">
-                    <button type="submit" target="_blank" class="form-control btn bg-gradient-warning btn-md" role="button">
-                         Terapkan</button>
+                    <a href="#" id="tombol_terapkan" onclick="terapkan()" class="form-control btn bg-gradient-warning btn-md" role="button">
+                         Terapkan</a>
+            
+
                 </div>
               </div>
+            </form>
         </div>
         <!-- /.card-header -->
         <div class="card-body">
@@ -109,6 +116,7 @@
         </div>
     </div>
 </div>
+<div class="data-halaman" data-halaman="beli-barang"></div>
 
 <!--Delete Model-->
 <div id="DeleteModal" class="modal fade text-danger" role="dialog">
@@ -149,4 +157,6 @@
     }
 </script>
 
+@include('script-table')
+@include('notifikasi')
 @endsection

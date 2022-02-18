@@ -38,7 +38,7 @@ $tahun = date('Y');
     <title>E-Barang {{ $tanggal_dari .' - '. $tanggal_sampai }}</title>
   </head>
   <body>
-    <h4 class="mb-4 text-center" style="font-family: inherit">BADAN PENDAPATAN KOTA SEMARANG</h4>
+    <h4 class="mb-4 text-center" style="font-family: inherit">DATA BARANG  <br>BADAN PENDAPATAN KOTA SEMARANG</h4>
 
     <div>
     <table id="barang" class="table table-bordered table-striped">
