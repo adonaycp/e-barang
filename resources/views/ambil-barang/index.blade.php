@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@include('datepicker')
 @section('content')
 <div class="content-header">
     <div class="container-fluid">
@@ -33,12 +33,47 @@
 
     <div class="card">
         <div class="card-header">
-            <div class="row">
-                <a href="{{ url('/ambil-barang/create') }}" class="btn bg-gradient-primary btn-md" role="button">
-                <i class="fa fa-plus" aria-hidden="true"></i> Tambah Data</a>&nbsp;&nbsp;
-                <a href="" class="btn bg-gradient-secondary btn-md" role="button">
-                <i class="fa fa-plus" aria-hidden="true"></i> Cetak</a>&nbsp;&nbsp;
-            </div>
+            <form action="" method="POST" class="mb-0">
+            <div class="form-row ">
+                <div class="form-group col-md-2 mb-0">
+                  <a href="{{ url('/barang/create') }}" class="form-control btn bg-gradient-primary btn-md" role="button">
+                    <i class="fa fa-plus" aria-hidden="true"></i> Tambah Data</a>
+                </div>
+                <div class="form-group col-md-2 mb-0">
+                  <a 
+                    @if ($tanggal_dari && $tanggal_sampai)
+                        
+                    href="/ambil-barang/cetak/{{ $tanggal_dari }}/{{ $tanggal_sampai }}"
+                    @else
+                    href="/ambil-barang/cetak/"
+                    
+                    @endif
+                     id="tombol_cetak" target="_blank" class="form-control btn bg-gradient-secondary btn-md" role="button">
+                    <i class="fa fa-print" aria-hidden="true"></i> Cetak</a>
+                </div>
+            
+
+                <div class="form-group col-md-1 text-right mb-0">
+                <label class="col-form-label">Dari :</label>
+                </div>
+                <div class="form-group col-md-2 mb-0 tanggal">
+                    <input date-format="yyyy-mm-dd" id="tanggal_dari" value="{{ $tanggal_dari }}" name="tanggal_dari" class="date form-control"  required>
+                </div>
+
+                <div class="form-group col-md-1 text-right mb-0">
+                    <label class="col-form-label">Sampai :</label>
+                    </div>
+                <div class="form-group col-md-2 mb-0 tanggal">
+                    <input date-format="yyyy-mm-dd" id="tanggal_sampai" name="tanggal_sampai" value="{{ $tanggal_sampai }}" class="date form-control"  required>
+                </div>
+                <div class="form-group col-md-2 mb-0">
+                    <a href="#" id="tombol_terapkan" onclick="terapkan()" class="form-control btn bg-gradient-warning btn-md" role="button">
+                         Terapkan</a>
+            
+
+                </div>
+              </div>
+            </form>
         </div>
         <!-- /.card-header -->
         <div class="card-body">
@@ -80,6 +115,8 @@
         </div>
     </div>
 </div>
+<div class="data-halaman" data-halaman="ambil-barang"></div>
+
 
 <!--Delete Model-->
 <div id="DeleteModal" class="modal fade text-danger" role="dialog">
@@ -120,4 +157,7 @@
     }
 </script>
 
+
+@include('script-table')
+@include('notifikasi')
 @endsection

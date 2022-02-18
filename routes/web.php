@@ -36,11 +36,26 @@ Route::get('/beli-barang/cetak', 'BeliBarangController@print');
 
 Route::resource('/category', 'CategoryController');
 
-Route::get('/barang/{tanggal_mulai}/{tanggal_selesai}', 'BarangController@index');
+Route::get('/filter-barang/{tanggal_mulai}/{tanggal_selesai}', 'BarangController@index');
 Route::get('/barang/cetak/{tanggal_mulai}/{tanggal_selesai}', 'BarangController@cetak');
 Route::get('/barang/cetak/', 'BarangController@cetak');
-Route::get('/barang/view-cetak/{tanggal_mulai}/{tanggal_selesai}', 'BarangController@viewCetak');
-Route::get('/barang/view-cetak/', 'BarangController@viewCetak');
+
+
+Route::get('/filter-ambil-barang/{tanggal_mulai}/{tanggal_selesai}', 'AmbilBarangController@index');
+Route::get('/ambil-barang/cetak/{tanggal_mulai}/{tanggal_selesai}', 'AmbilBarangController@cetak');
+Route::get('/ambil-barang/cetak/', 'AmbilBarangController@cetak');
+
+
+Route::get('/filter-beli-barang/{tanggal_mulai}/{tanggal_selesai}', 'BeliBarangController@index');
+Route::get('/beli-barang/cetak/{tanggal_mulai}/{tanggal_selesai}', 'BeliBarangController@cetak');
+Route::get('/beli-barang/cetak/', 'BeliBarangController@cetak');
+// Route::get('/barang/view-cetak/{tanggal_mulai}/{tanggal_selesai}', 'BarangController@viewCetak');
+// Route::get('/barang/view-cetak/', 'BarangController@viewCetak');
+
+
+
+
+Route::resource('/barang', 'BarangController');
 Route::resource('/barang', 'BarangController');
 // Route::resource('/barang/cetak', 'BarangController@cetak');
 

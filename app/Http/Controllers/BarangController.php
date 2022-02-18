@@ -224,32 +224,32 @@ class BarangController extends Controller
        
     }
 
-    public function viewCetak($tanggal_dari = NULL,$tanggal_sampai = NULL)
-    {
-        $barang = Barang::with('namaKategori')->get();
-        // $tanggalInput = DB::table('barang')->pluck('tgl_input')->toArray();
+    // public function viewCetak($tanggal_dari = NULL,$tanggal_sampai = NULL)
+    // {
+    //     $barang = Barang::with('namaKategori')->get();
+    //     // $tanggalInput = DB::table('barang')->pluck('tgl_input')->toArray();
 
-        $periode = [];
+    //     $periode = [];
         
 
-        if ($tanggal_dari & $tanggal_sampai)
-        {
+    //     if ($tanggal_dari & $tanggal_sampai)
+    //     {
 
-            $periode = Barang::with('namaKategori')
-               ->whereBetween('tgl_input', [$tanggal_dari, $tanggal_sampai])
-               ->get();
+    //         $periode = Barang::with('namaKategori')
+    //            ->whereBetween('tgl_input', [$tanggal_dari, $tanggal_sampai])
+    //            ->get();
             
-            $barang = $periode;
-        }
+    //         $barang = $periode;
+    //     }
 
-        // return view('barang.cetak', compact('barang','tanggal_dari','tanggal_sampai'));
+    //     // return view('barang.cetak', compact('barang','tanggal_dari','tanggal_sampai'));
 
-        // $pdf = PDF::loadView('barang.cetak',['barang' => $barang, 'tanggal_dari' => $tanggal_dari, 'tanggal_sampai' => $tanggal_sampai])->setPaper('A4','landscape');
-        // $pdf->loadHTML('<h1>Test</h1>');
-        // return $pdf->stream();
+    //     // $pdf = PDF::loadView('barang.cetak',['barang' => $barang, 'tanggal_dari' => $tanggal_dari, 'tanggal_sampai' => $tanggal_sampai])->setPaper('A4','landscape');
+    //     // $pdf->loadHTML('<h1>Test</h1>');
+    //     // return $pdf->stream();
 
-        return view('barang.cetak', compact('barang','tanggal_dari','tanggal_sampai'));
+    //     return view('barang.cetak', compact('barang','tanggal_dari','tanggal_sampai'));
 
-    }
+    // }
     
 }

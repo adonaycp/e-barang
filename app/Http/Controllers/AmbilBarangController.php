@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Redirect;
 use App\AmbilBarang;
 use App\Category;
 use App\Barang;
+use PDF;
 use DB;
 use Auth;
 
@@ -17,13 +18,23 @@ class AmbilBarangController extends Controller
     *
     * @return \Illuminate\Http\Response
     */
-    public function index()
+    public function index($tanggal_dari = NULL,$tanggal_sampai = NULL)
     {
         /**
         * untuk menampilkan nama kategori dan barang di tabel ambilbarang
         */
         $ambilbarang = AmbilBarang::with(['namaBarang'], ['namaKategori'])->get();
-        return view('ambil-barang.index', compact('ambilbarang'));
+
+        if ($tanggal_dari & $tanggal_sampai)
+        {
+
+            $ambilbarang = AmbilBarang::with(['namaBarang'], ['namaKategori'])
+               ->whereBetween('tgl_ambil', [$tanggal_dari, $tanggal_sampai])
+               ->get();
+            
+            
+        }
+        return view('ambil-barang.index', compact('ambilbarang','tanggal_dari','tanggal_sampai'));
     }
 
     /**
@@ -185,6 +196,30 @@ class AmbilBarangController extends Controller
         $ambilbarang = DB::table('ambilbarang')->where('id_ambilbarang', $id_ambilbarang)->delete();
         return redirect('ambil-barang')->with('success', 'Data Berhasil Dihapus');
 
+    }
+
+    public function cetak($tanggal_dari = NULL,$tanggal_sampai = NULL)
+    {
+        
+
+        $ambilbarang = AmbilBarang::with(['namaBarang'], ['namaKategori'])->get();
+
+        if ($tanggal_dari & $tanggal_sampai)
+        {
+
+            $ambilbarang = AmbilBarang::with(['namaBarang'], ['namaKategori'])
+               ->whereBetween('tgl_ambil', [$tanggal_dari, $tanggal_sampai])
+               ->get();
+            
+            
+        }
+
+        // return view('barang.cetak', compact('barang','tanggal_dari','tanggal_sampai'));
+
+        $pdf = PDF::loadView('ambil-barang.cetak',['ambilbarang' => $ambilbarang, 'tanggal_dari' => $tanggal_dari, 'tanggal_sampai' => $tanggal_sampai])->setPaper('A4','landscape');
+        // $pdf->loadHTML('<h1>Test</h1>');
+        return $pdf->stream();
+       
     }
     
 }
