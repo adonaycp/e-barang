@@ -100,13 +100,6 @@
               </p>
             </a>
           </li>
-          <li class="nav-item">
-            <a href="{{ url('/suara') }}" class="nav-link {{(request()->segment(1) == 'suara') ? 'active' : ''}}">
-              <i class="nav-icon fas fa-th"></i>
-              <p>Data Perolehan Suara</p>
-              </p>
-            </a>
-          </li>
           <li class="nav-item has-treeview">
             <a href="{{ url('/category') }}" class="nav-link {{(request()->segment(1) == 'category') ? 'active' : ''}}">
               <i class="nav-icon fa fa-list-ul"></i>
@@ -153,12 +146,6 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="./index.html" class="nav-link">
-                  <i class="fas fa-upload nav-icon"></i>
-                  <p>Import</p>
-                </a>
-              </li>
               <li class="nav-item">
                 <a href="{{ url('/profile') }}" class="nav-link {{(request()->segment(1) == 'profile') ? 'active' : ''}}">
                   <i class="fas fa-id-card nav-icon"></i>
